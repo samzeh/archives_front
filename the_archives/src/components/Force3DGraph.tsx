@@ -82,10 +82,10 @@ export default function Force3DGraph() {
       graph.linkWidth((link: LinkObject) =>
         highlightLinks.has(link) ? 4 : 1
       )
-      graph.linkDirectionalParticles(link => 
+      graph.linkDirectionalParticles((link: LinkObject) => 
         highlightLinks.has(link) ? 4 : 0
       )
-      graph.linkColor(link => '#ffffff')
+      graph.linkColor((link: LinkObject) => '#ffffff')
     }
 
     function highlightNode(node: NodeObject | null) {
