@@ -22,19 +22,72 @@ export default function Force3DGraph() {
     ]
   }
 
+
+
+
   useEffect(() => {
 
     let graph: ForceGraph3DInstance | null = null;
+
+    graphData.links.forEach(link => {
+      const a = graphData.nodes[link.source];
+      const b = graphData.nodes[link.target];
+      !a.neighbors && (a.neighbors = []); // check to see if node object has neighbors array, if not create one
+      !b.neighbors && (b.neighbors = []);
+      a.neighbors.push(b); // add neighbors
+      b.neighbors.push(a);
+
+      !a.links && (a.links = []); // check to see if node object has linnks array, if not create them
+      !b.links && (b.links = []);
+      a.links.push(link); // push the link object (ex. { "source": 0, "target": 1 }) into the links array of the node object
+      b.links.push(link);
+    });
+
+    const highlightNodes = new Set();
+    const highlightLinks = new Set();
+    let hoverNode = null;
 
 
     if (containerRef.current) {
       graph = new ForceGraph3D(containerRef.current)
         .backgroundColor('#000010')
         .graphData(graphData)
-        .nodeColor(n => n.id === 0 ? 'orange' : 'skyblue')
+        .nodeColor(node => highlightNodes.has(node) ? node === hoverNode ? 'rgb(255,0,0,1)' : 'rgba(255,160,0,0.8)' : 'rgba(0,255,255,0.6)')
+        .linkWidth(link => highlightLinks.has(link) ? 4 : 1)
+        .linkDirectionalParticles(link => highlightLinks.has(link) ? 4 : 0)
+        .linkDirectionalParticleWidth(4)
+
+        .onNodeHover(node => {
+          // no state change
+          if ((!node && !highlightNodes.size) || (node && hoverNode === node)) return;
+
+          highlightNodes.clear();
+          highlightLinks.clear();
+
+          if (node) {
+            highlightNodes.add(node);
+            node.neighbors.forEach(neighbor => highlightNodes.add(neighbor));
+            node.links.forEach(link => highlightLinks.add(link));
+          }
+
+          hoverNode = node || null;
+
+          updateHighlight();
+        })
+        .onLinkHover(link => {
+          highlightNodes.clear();
+          highlightLinks.clear();
+
+          if (link) {
+            highlightLinks.add(link);
+            highlightNodes.add(link.source);
+            highlightNodes.add(link.target);
+          }
+
+          updateHighlight();
+        })
         .nodeLabel('label')
         .nodeRelSize(8)
-        .linkColor(() => 'white')
         .onNodeClick(node => {
           // Aim at node from outside it
           const distance = 100;
@@ -50,6 +103,11 @@ export default function Force3DGraph() {
             3000  // ms transition duration
           );
         });
+
+        function updateHighlight() {
+            // trigger update of highlighted objects in scene
+            (graph as any)?.refresh();
+        }
 
         
     }
