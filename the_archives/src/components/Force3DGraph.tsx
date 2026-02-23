@@ -10,15 +10,16 @@ interface NodeObject {
   label: string
   neighbors?: NodeObject[]
   links?: LinkObject[]
-  x?: number
-  y?: number
-  z?: number
+  x: number
+  y: number
+  z: number
 }
 
 interface LinkObject {
   source: number
   target: number
 }
+
 
 
 export default function Force3DGraph() {
@@ -38,7 +39,7 @@ export default function Force3DGraph() {
 
   useEffect(() => {
 
-    let graph: ForceGraph3DInstance | null = null;
+    if (!containerRef.current) return;
 
     graphData.links.forEach(link => {
       const a: NodeObject = graphData.nodes[link.source];
@@ -54,84 +55,92 @@ export default function Force3DGraph() {
       b.links.push(link);
     });
 
+    const graph: ForceGraph3DInstance = new ForceGraph3D(containerRef.current)
+      .backgroundColor('#000000')
+      .graphData(graphData)
+      .nodeRelSize(8)
+      .nodeLabel('label')
+      .linkDirectionalParticleWidth(4)
+      .nodeColor((node: NodeObject) => node.id === 0? 'rgb(255, 0, 247)' : 'rgba(0,255,255,0.6)')
+
     const highlightNodes = new Set();
     const highlightLinks = new Set();
     let hoverNode: NodeObject | null = null;
+    let selectedNode: NodeObject | null = null;
 
 
-    if (containerRef.current) {
-      graph = new ForceGraph3D(containerRef.current)
-        .backgroundColor('#000010')
-        .graphData(graphData)
-        .nodeColor(node => 
-          highlightNodes.has(node) 
+    function updateHighlight() {
+      graph.nodeColor((node: NodeObject) => 
+        highlightNodes.has(node) 
           ? node === hoverNode 
             ? 'rgb(255,0,0,1)' 
             : 'rgba(255,160,0,0.8)' 
           :node.id === 0
-            ? 'rgb(255, 0, 247)'
-            : 'rgba(0,255,255,0.6)')
-        .linkWidth(link => highlightLinks.has(link) ? 4 : 1)
-        .linkDirectionalParticles(link => highlightLinks.has(link) ? 4 : 0)
-        .linkDirectionalParticleWidth(4)
-
-        .onNodeHover(node => {
-          // no state change
-          const n = node as NodeObject | null;
-          if ((!n && !highlightNodes.size) || (n && hoverNode === n)) return;
-
-          highlightNodes.clear();
-          highlightLinks.clear();
-
-          if (n) {
-            highlightNodes.add(n);
-            n.neighbors?.forEach(neighbor => highlightNodes.add(neighbor));
-            n.links?.forEach(link => highlightLinks.add(link));
-          }
-
-          hoverNode = n || null;
-
-          updateHighlight();
-        })
-        .onLinkHover(link => {
-          highlightNodes.clear();
-          highlightLinks.clear();
-
-          if (link) {
-            highlightLinks.add(link);
-            highlightNodes.add(link.source);
-            highlightNodes.add(link.target);
-          }
-
-          updateHighlight();
-        })
-        .nodeLabel('label')
-        .nodeRelSize(8)
-        .onNodeClick(node => {
-
-          // Aim at node from outside it
-          const distance = 100;
-          const distRatio = 1 + distance/Math.hypot(node.x!, node.y!, node.z!);
-
-          const newPos = node.x || node.y || node.z
-            ? { x: node.x! * distRatio, y: node.y! * distRatio, z: node.z! * distRatio }
-            : { x: 0, y: 0, z: distance }; // special case if node is in (0,0,0)
-
-          graph?.cameraPosition(
-            newPos, // new position
-            node, // lookAt ({ x, y, z })
-            3000  // ms transition duration
-          );
-        });
-
-        function updateHighlight() {
-          graph
-            ?.nodeColor(graph.nodeColor())
-            ?.linkWidth(graph.linkWidth())
-            ?.linkDirectionalParticles(graph.linkDirectionalParticles())
-        }
-
+          ? 'rgb(255, 0, 247)'
+          : 'rgba(0,255,255,0.6)'
+      )
+      graph.linkWidth((link: LinkObject) =>
+        highlightLinks.has(link) ? 4 : 1
+      )
+      graph.linkDirectionalParticles(link => 
+        highlightLinks.has(link) ? 4 : 0
+      )
+      graph.linkColor(link => '#ffffff')
     }
+
+    function highlightNode(node: NodeObject | null) {
+      highlightNodes.clear();
+      highlightLinks.clear();
+
+      if (node) {
+        highlightNodes.add(node);
+        node.neighbors?.forEach(neighbor => highlightNodes.add(neighbor));
+        node.links?.forEach(link => highlightLinks.add(link));
+      }
+
+      hoverNode = node;
+      updateHighlight();
+    }
+
+    graph.onNodeHover((node: NodeObject | null) => {
+      if (!selectedNode) {
+        highlightNode(node);
+      }
+    })
+
+    graph.onLinkHover((link: LinkObject | null) => {
+      if (!selectedNode) {
+        highlightNodes.clear()
+        highlightLinks.clear()
+        if (link) {
+          highlightLinks.add(link)
+          highlightNodes.add(link.source)
+          highlightNodes.add(link.target)
+        }
+        updateHighlight()
+      }
+    })
+
+    graph.onNodeClick((node: NodeObject) => {
+      selectedNode = node
+
+      const distance = 100
+      const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z)
+      const newPos = {
+        x: node.x * distRatio,
+        y: node.y * distRatio,
+        z: node.z * distRatio
+      }
+      const lookAt = { x: node.x, y: node.y, z: node.z }
+
+      graph.cameraPosition(newPos, lookAt, 3000)
+      highlightNode(node)
+    })
+
+    graph.onBackgroundClick(() => {
+      selectedNode = null
+      highlightNode(null)
+    })
 
     return () => {
       graph?._destructor?.();
