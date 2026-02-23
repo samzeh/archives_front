@@ -1,0 +1,12 @@
+.footer-bar {
+  position: fixed;
+  display: flex;
+  justify-content: flex-start;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  padding: 10px;
+  text-align: center;
+  box-sizing: border-box;
+  gap: 15px;
+}
