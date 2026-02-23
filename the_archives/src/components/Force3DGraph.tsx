@@ -52,7 +52,14 @@ export default function Force3DGraph() {
       graph = new ForceGraph3D(containerRef.current)
         .backgroundColor('#000010')
         .graphData(graphData)
-        .nodeColor(node => highlightNodes.has(node) ? node === hoverNode ? 'rgb(255,0,0,1)' : 'rgba(255,160,0,0.8)' : 'rgba(0,255,255,0.6)')
+        .nodeColor(node => 
+          highlightNodes.has(node) 
+          ? node === hoverNode 
+            ? 'rgb(255,0,0,1)' 
+            : 'rgba(255,160,0,0.8)' 
+          :node.id === 0
+            ? 'rgb(255, 0, 247)'
+            : 'rgba(0,255,255,0.6)')
         .linkWidth(link => highlightLinks.has(link) ? 4 : 1)
         .linkDirectionalParticles(link => highlightLinks.has(link) ? 4 : 0)
         .linkDirectionalParticleWidth(4)
@@ -66,8 +73,8 @@ export default function Force3DGraph() {
 
           if (node) {
             highlightNodes.add(node);
-            node.neighbors.forEach(neighbor => highlightNodes.add(neighbor));
-            node.links.forEach(link => highlightLinks.add(link));
+            node.neighbors?.forEach(neighbor => highlightNodes.add(neighbor));
+            node.links?.forEach(link => highlightLinks.add(link));
           }
 
           hoverNode = node || null;
@@ -105,11 +112,12 @@ export default function Force3DGraph() {
         });
 
         function updateHighlight() {
-            // trigger update of highlighted objects in scene
-            (graph as any)?.refresh();
+          graph
+            ?.nodeColor(graph.nodeColor())
+            ?.linkWidth(graph.linkWidth())
+            ?.linkDirectionalParticles(graph.linkDirectionalParticles())
         }
 
-        
     }
 
     return () => {
