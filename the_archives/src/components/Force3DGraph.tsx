@@ -5,10 +5,24 @@ interface ForceGraph3DInstance {
   _destructor?: () => void
 }
 
+interface NodeObject {
+  id: number
+  label: string
+  neighbors?: NodeObject[]
+  links?: LinkObject[]
+  x?: number
+  y?: number
+  z?: number
+}
+
+interface LinkObject {
+  source: number
+  target: number
+}
+
+
 export default function Force3DGraph() {
   const containerRef = useRef<HTMLDivElement | null>(null)
-
-
 
   const graphData = {
     nodes: Array.from({ length: 10 }, (_, i) => ({ id: i, label: `Node ${i}` })),
@@ -22,30 +36,27 @@ export default function Force3DGraph() {
     ]
   }
 
-
-
-
   useEffect(() => {
 
     let graph: ForceGraph3DInstance | null = null;
 
     graphData.links.forEach(link => {
-      const a = graphData.nodes[link.source];
-      const b = graphData.nodes[link.target];
-      !a.neighbors && (a.neighbors = []); // check to see if node object has neighbors array, if not create one
-      !b.neighbors && (b.neighbors = []);
+      const a: NodeObject = graphData.nodes[link.source];
+      const b: NodeObject = graphData.nodes[link.target];
+      if (!a.neighbors) a.neighbors = []; // check to see if node object has neighbors array, if not create one
+      if (!b.neighbors) b.neighbors = [];
       a.neighbors.push(b); // add neighbors
       b.neighbors.push(a);
 
-      !a.links && (a.links = []); // check to see if node object has linnks array, if not create them
-      !b.links && (b.links = []);
+      if (!a.links) a.links = []; // check to see if node object has linnks array, if not create them
+      if (!b.links) b.links = [];
       a.links.push(link); // push the link object (ex. { "source": 0, "target": 1 }) into the links array of the node object
       b.links.push(link);
     });
 
     const highlightNodes = new Set();
     const highlightLinks = new Set();
-    let hoverNode = null;
+    let hoverNode: NodeObject | null = null;
 
 
     if (containerRef.current) {
@@ -66,18 +77,19 @@ export default function Force3DGraph() {
 
         .onNodeHover(node => {
           // no state change
-          if ((!node && !highlightNodes.size) || (node && hoverNode === node)) return;
+          const n = node as NodeObject | null;
+          if ((!n && !highlightNodes.size) || (n && hoverNode === n)) return;
 
           highlightNodes.clear();
           highlightLinks.clear();
 
-          if (node) {
-            highlightNodes.add(node);
-            node.neighbors?.forEach(neighbor => highlightNodes.add(neighbor));
-            node.links?.forEach(link => highlightLinks.add(link));
+          if (n) {
+            highlightNodes.add(n);
+            n.neighbors?.forEach(neighbor => highlightNodes.add(neighbor));
+            n.links?.forEach(link => highlightLinks.add(link));
           }
 
-          hoverNode = node || null;
+          hoverNode = n || null;
 
           updateHighlight();
         })
@@ -96,12 +108,13 @@ export default function Force3DGraph() {
         .nodeLabel('label')
         .nodeRelSize(8)
         .onNodeClick(node => {
+
           // Aim at node from outside it
           const distance = 100;
-          const distRatio = 1 + distance/Math.hypot(node.x, node.y, node.z);
+          const distRatio = 1 + distance/Math.hypot(node.x!, node.y!, node.z!);
 
           const newPos = node.x || node.y || node.z
-            ? { x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio }
+            ? { x: node.x! * distRatio, y: node.y! * distRatio, z: node.z! * distRatio }
             : { x: 0, y: 0, z: distance }; // special case if node is in (0,0,0)
 
           graph?.cameraPosition(
