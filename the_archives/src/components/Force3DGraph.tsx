@@ -99,14 +99,25 @@ export default function Force3DGraph() {
 
 
     function updateHighlight() {
-      graph.nodeColor((node: NodeObject) => 
-        highlightNodes.has(node) 
-          ? node === hoverNode 
-            ? 'rgb(255,0,0,1)' 
-            : 'rgba(255,160,0,0.8)' 
-          :node.id === 0
-          ? 'rgb(255, 0, 247)'
-          : 'rgba(0,255,255,0.6)'
+      graph.nodeColor((node: NodeObject) => {
+        if (highlightNodes.has(node)) {
+          if (node === hoverNode) {
+            if (node.id === 0) {
+              return 'rgb(255,0,247,1)'; 
+            } else {
+              return 'rgb(255,0,0,1)';
+            }
+          } else {
+            return 'rgba(255,160,0,0.8)'; 
+          }
+        } else {
+          if (node.id === 0) {
+            return 'rgb(255, 0, 247)';
+          } else {
+            return 'rgba(0,255,255,0.6)';
+          }
+        }
+      }
       )
       graph.linkWidth((link: LinkObject) =>
         highlightLinks.has(link) ? 4 : 1
