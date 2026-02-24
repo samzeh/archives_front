@@ -39,9 +39,11 @@ const fetchGraphData = async(liked_book_id: number) => {
 
 export default function Force3DGraph() {
 
+
   const {data: graphDataInfo, isLoading, error, status } = useQuery({
     queryKey: ["liked_books"],
-    queryFn: () => fetchGraphData(liked_book_id)
+    queryFn: () => fetchGraphData(liked_book_id),
+    refetchOnWindowFocus: false,
   })
 
   console.log("status:", status, "error:", error, "data:", graphDataInfo)
