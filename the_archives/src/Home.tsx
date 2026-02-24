@@ -11,7 +11,6 @@ function Home() {
 
   return (
     <>
-      <h1>Welcome to The Archives</h1>
       <Force3DGraph />
 
       <div className = "footer-bar">
