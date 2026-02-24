@@ -1,5 +1,7 @@
-import { useRef, useEffect } from 'react'
+import React, { useRef, useEffect } from 'react'
 import ForceGraph3D from '3d-force-graph'
+import { useQuery } from '@tanstack/react-query'
+
 
 interface ForceGraph3DInstance {
   _destructor?: () => void
@@ -20,26 +22,53 @@ interface LinkObject {
   target: number
 }
 
+const liked_book_id = 68;
 
+const fetchGraphData = async(liked_book_id: number) => {
+  const response = await fetch(`/recommendation-graph/${liked_book_id}`, {
+    method: "GET",
+    headers: {
+    "Content-Type": "application/json",
+  } 
+  })
+  const data = await response.json()
+  console.log("raw data from fetch:", data)
+  return data
+  
+}
 
 export default function Force3DGraph() {
+
+  const {data: graphDataInfo, isLoading, error, status } = useQuery({
+    queryKey: ["liked_books"],
+    queryFn: () => fetchGraphData(liked_book_id)
+  })
+
+  console.log("status:", status, "error:", error, "data:", graphDataInfo)
+
+
   const containerRef = useRef<HTMLDivElement | null>(null)
 
-  const graphData = {
-    nodes: Array.from({ length: 10 }, (_, i) => ({ id: i, label: `Node ${i}` })),
-    links: [
-      { source: 0, target: 1 },
-      { source: 0, target: 2 },
-      { source: 1, target: 2 },
-      { source: 3, target: 4 },
-      { source: 4, target: 5 },
-      { source: 5, target: 3 }
-    ]
-  }
-
   useEffect(() => {
+    console.log("useEffect fired, graphDataInfo:", graphDataInfo)
+    console.log("containerRef:", containerRef.current)
 
-    if (!containerRef.current) return;
+    if (!containerRef.current || !graphDataInfo?.nodes || !graphDataInfo?.links) {
+      console.log("bailing early — one of these is falsy:", {
+        container: !!containerRef.current,
+        nodes: !!graphDataInfo?.nodes,
+        links: !!graphDataInfo?.links
+      })
+      return;
+    }
+    const nodes_list = graphDataInfo.nodes
+    const links_list = graphDataInfo.links
+    console.log(nodes_list)
+
+    const graphData = {
+      nodes: nodes_list,
+      links: links_list
+    }
 
     graphData.links.forEach(link => {
       const a: NodeObject = graphData.nodes[link.source];
@@ -85,7 +114,7 @@ export default function Force3DGraph() {
       graph.linkDirectionalParticles((link: LinkObject) => 
         highlightLinks.has(link) ? 4 : 0
       )
-      graph.linkColor((link: LinkObject) => '#ffffff')
+      graph.linkColor(link => '#ffffff')
     }
 
     function highlightNode(node: NodeObject | null) {
@@ -145,7 +174,16 @@ export default function Force3DGraph() {
     return () => {
       graph?._destructor?.();
     }
-  }, [])
+  }, [graphDataInfo])
 
-  return <div ref={containerRef} style={{ width: '100%', height: '100%' }} />
+  return (
+    <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+      {isLoading && (
+        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', color: 'white' }}>
+          Loading graph...
+        </div>
+      )}
+      <div ref={containerRef} style={{ width: '100%', height: '100%' }} />
+    </div>
+  )
 }
