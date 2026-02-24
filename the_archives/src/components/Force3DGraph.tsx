@@ -33,7 +33,7 @@ export default function Force3DGraph() {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const graphRef = useRef<ForceGraph3DInstance | null>(null)
 
-  const {data: graphDataInfo } = useQuery({
+  const {data: graphDataInfo, isLoading } = useQuery({
     queryKey: ["liked_books"],
     queryFn: () => fetchGraphData(liked_book_id),
     refetchOnWindowFocus: false,
@@ -178,6 +178,15 @@ export default function Force3DGraph() {
 
 return (
   <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+    {isLoading && (
+      <div style={{
+        position: 'absolute', inset: 0,
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        backgroundColor: '#000000', color: 'white', fontSize: '1.5rem', zIndex: 10
+      }}>
+        Loading...
+      </div>
+    )}
     <div ref={containerRef} style={{ width: '100%', height: '100%' }} />
   </div>
 )
