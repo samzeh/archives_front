@@ -1,0 +1,79 @@
+.detail-card-container {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+
+}
+
+.detail-card-container p {
+  color: '#5B5348';
+  font-family: 'Courier Prime', monospace;
+  font-size: 1.1rem;
+}
+
+.bottom-text {
+  position: absolute;
+  bottom: 14px;
+  right: 20px;
+  margin: 0;
+  font-size: .8rem !important;
+  color: #9C8671 !important;
+  cursor: pointer;
+  user-select: none;
+  margin-right: 10px;
+  letter-spacing: -0.1em;
+}
+
+.detail-card {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  width: 500px;
+  height: 220px;
+  background: rgba(255, 248, 237, 0.8);
+  border-radius: 23px;
+  border: 1px solid rgba(185, 170, 152, 0.8);
+  filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.25));
+  box-sizing: border-box;
+  padding: 30px;
+  gap: 30px;
+
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.detail-card-right {
+  min-width: 0;
+  overflow: hidden;
+  flex: 7 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-card-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink:2 0;
+}
+
+img.detail-card-left {
+  height: 150px;
+  width: calc(150px * 5 / 7);
+  aspect-ratio: 5 / 7;
+  object-fit: cover;
+  border-radius: 4px;
+  align-self: flex-start;
+}
+
+h1.book-title {
+  font-size: 40px;
+  padding: 0;
+  margin: 0;
+  color: #422D13;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

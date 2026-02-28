@@ -23,6 +23,7 @@ interface LinkObject {
 
 const liked_book_id = 68;
 
+
 const fetchGraphData = async(liked_book_id: number) => {
   const response = await fetch(`/recommendation-graph/${liked_book_id}`)
   return response.json()
@@ -43,11 +44,11 @@ export default function Force3DGraph() {
     if (!containerRef.current) return
 
     const graph: ForceGraph3DInstance = new ForceGraph3D(containerRef.current)
-      .backgroundColor('#000000')
+      .backgroundColor('#FFF8EE')
       .nodeRelSize(8)
       .nodeLabel('label')
       .linkDirectionalParticleWidth(4)
-      .nodeColor((node: NodeObject) => node.id === 0? 'rgb(255, 0, 247)' : 'rgba(0,255,255,0.6)')
+      .nodeColor((node: NodeObject) => node.id === 0? '#D652D9' : '#5AA4FF')
 
     graphRef.current = graph
 
@@ -66,13 +67,13 @@ export default function Force3DGraph() {
               return 'rgb(255,0,0,1)';
             }
           } else {
-            return 'rgba(255,160,0,0.8)'; 
+            return '#FE9955'; 
           }
         } else {
           if (node.id === 0) {
-            return 'rgb(255, 0, 247)';
+            return '#D652D9';
           } else {
-            return 'rgba(0,255,255,0.6)';
+            return '#5AA4FF';
           }
         }
       }
@@ -83,7 +84,7 @@ export default function Force3DGraph() {
       graph.linkDirectionalParticles((link: LinkObject) => 
         highlightLinks.has(link) ? 4 : 0
       )
-      graph.linkColor(link => '#ffffff')
+      graph.linkColor(link => '#94836D')
     }
 
     function highlightNode(node: NodeObject | null) {
@@ -174,7 +175,7 @@ export default function Force3DGraph() {
     
     graphRef.current.graphData(graphData)
 
-  }, [graphDataInfo])
+  }, [graphDataInfo, liked_book_id])
 
 return (
   <div style={{ width: '100%', height: '100%', position: 'relative' }}>

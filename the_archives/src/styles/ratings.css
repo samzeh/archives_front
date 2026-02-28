@@ -1,0 +1,12 @@
+.star {
+  height: 2.2em;
+  width: 2.2em;
+}
+
+.star-rating-box {
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
+  align-self: flex-start;
+  margin-top: auto;
+}
