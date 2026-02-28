@@ -50,10 +50,34 @@
 
 .action-button {
   padding: 10px 20px;
-  font-family: 'Inter', sans-serif;
+  font-family: 'DM Sans', sans-serif;
   border-radius: 200px;
   font-size: 1.2rem;
   color: rgb(0, 0, 0);
   background: rgba(255, 255, 255);
 
+}
+
+.genre-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.genre-container::-webkit-scrollbar {
+  display: none;
+}
+
+.genre-pill {
+  padding: 8px 17px;
+  font-family: 'DM Sans', sans-serif;
+  border-radius: 200px;
+  font-size: 1rem;
+  color: #422D13;
+  background: rgba(185, 170, 152, 0.25);
+  border: 1px solid rgba(185, 170, 152, 0.6);
+  white-space: nowrap;
 }

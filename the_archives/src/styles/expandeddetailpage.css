@@ -9,7 +9,7 @@
   filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.25));
   box-sizing: border-box;
   padding: 30px;
-  gap: 30px;
+  gap: 5px;
 
   margin-top: 20px;
   margin-left: 20px;
@@ -50,4 +50,36 @@
 .info-section p {
   font-size: 20px;
   letter-spacing: -0.1em;
+  margin-top: -7px;
+}
+
+.expanded-detail-card .star {
+  height: 1.7em;
+  width: 1.8em;
+  margin-bottom: 5px;
+}
+
+hr {
+  border: none;
+  border-top: .5px solid #BEB3A2;
+}
+
+.description {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.4rem;
+  color: #000000;
+  margin-top: 10px;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: calc(7 * 1.5em);
+  line-height: 1.5em;
+  scrollbar-width: 2px;
+}
+
+.description::-webkit-scrollbar {
+  display: none;
 }

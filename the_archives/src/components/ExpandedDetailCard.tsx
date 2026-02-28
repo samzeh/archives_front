@@ -3,15 +3,13 @@ import '../styles/expandeddetailpage.css'
 import StarRatings from './StarRatings'
 import ActionButton from './ActionButton'
 import { motion } from 'motion/react'
+import GenreCarousel from './GenreCarousel'
 
 export default function ExpandedDetailCard(props: { onCollapse: () => void }) {
   return (
     <motion.div className="expanded-detail-card" layoutId="book-card" onClick={props.onCollapse} transition={{ type: 'spring', stiffness: 180, damping: 26 }}>
-      <motion.div
+      <div
         className="info-section"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, transition: { delay: 0.15, duration: 0.2 } }}
-        exit={{ opacity: 0, transition: { duration: 0.1 } }}
       >
         <img src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1341952742i/15745753.jpg" />
         <div className="info-text">
@@ -23,7 +21,12 @@ export default function ExpandedDetailCard(props: { onCollapse: () => void }) {
             <ActionButton title="finished" bgColor='#D9D9D9' textColor='#000000' />
           </div>
         </div>
-      </motion.div>
+      </div>
+      <div><hr /></div>
+      <GenreCarousel genres={['Fiction', 'Coming of Age', 'Contemporary', 'Fiction', 'Coming of Age', 'Contemporary']} />
+      <div className="description">
+        standing on the fringes of life offers a unique perspective. But there comes a time to see what it looks like from the dance floor. This haunting novel about the dilemma of passivity vs. passion marks the stunning debut of a provocative new voice in contemporary fiction: The Perks of Being A WALLFLOWER...         standing on the fringes of life offers a unique perspective. But there comes a time to see what it looks like from the dance floor. This haunting novel about the dilemma of passivity vs. passion marks the stunning debut of a provocative new voice in contemporary fiction: The Perks of Being A WALLFLOWER...
+      </div>
     </motion.div>
   )
 }
