@@ -7,7 +7,6 @@
 
 .detail-card-container p {
   color: '#5B5348';
-  font-family: 'Courier Prime', monospace;
   font-size: 1.1rem;
 }
 
@@ -62,7 +61,7 @@ img.detail-card-left {
   width: calc(150px * 5 / 7);
   aspect-ratio: 5 / 7;
   object-fit: cover;
-  border-radius: 4px;
+  /* border-radius: 4px; */
   align-self: flex-start;
 }
 

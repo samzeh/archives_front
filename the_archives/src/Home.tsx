@@ -3,7 +3,8 @@ import './Home.css'
 import SearchBarButton from './components/SearchBarButton'
 import ProfileButton from './components/ProfileButton'
 import Force3DGraph from './components/Force3DGraph'
-import DetailCard from './components/detailCard'
+import DetailCard from './components/DetailCard'
+import ExpandedDetailCard from './components/ExpandedDetailCard'
 
 
 
@@ -14,6 +15,7 @@ function Home() {
     <>
       {/* <Force3DGraph /> */}
       <DetailCard />
+      <ExpandedDetailCard />
 
       <div className = "footer-bar">
         {/* <ProfileButton /> */}
