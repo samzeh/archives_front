@@ -5,12 +5,12 @@ const mockResults = [
   {
     "title": "Percy Jackson",
     "author": "Rick Riordan",
-    "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1341952742i/15745753.jpg"
+    "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1555447414i/44767458.jpg"
   },
   {
     "title": "Peter Pan",
     "author": "J.M. Barrie",
-    "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1341952742i/15745753.jpg"
+    "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1555447414i/44767458.jpg"
   },
   {
     "title": "Perks of Being a Wallflower",
