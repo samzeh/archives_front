@@ -1,4 +1,5 @@
 import React from 'react'
+import { motion } from 'motion/react'
 
 const mockResults = [
   {
@@ -21,16 +22,23 @@ const mockResults = [
 export default function SearchResults() {
   return (
     <div className="search-results-box">
-      {mockResults.map((result, index)=>{
+      {mockResults.map((result, index) => {
+        const reverseDelay = (mockResults.length - 1 - index) * 0.17
         return (
           <>
-            <div key={index} className="search-result-card">
+            <motion.div
+              key={index}
+              className="search-result-card"
+              initial={{ opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: reverseDelay }}
+            >
               <img src={result.cover} alt={`${result.title} cover`} className="search-result-cover" />
               <div className="search-result-info">
                 <h1>{result.title}</h1>
                 <p>{result.author}</p>
               </div>
-            </div>
+            </motion.div>
 
             {index!==mockResults.length-1 && (
               <hr className="search-result-divider" />
