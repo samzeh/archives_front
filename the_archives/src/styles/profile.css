@@ -22,7 +22,6 @@
 }
 .section-title {
   font-size: 40px;
-
 }
 
 .header {
@@ -53,7 +52,7 @@
 }
 
 
-/* ADDED MODAL CODE */
+/* modal */
 .modal-backdrop {
   position: fixed;
   inset: 0;
@@ -66,8 +65,8 @@
   top: 0;
   right: 0;
   height: 100%;
-  width: 40vw;
-  background: rgba(255, 248, 237, 0.95);
+  width: min(50vw, 700px);
+  background: rgba(255, 248, 237);
   z-index: 21;
   padding: 40px 30px;
   box-sizing: border-box;
@@ -76,9 +75,86 @@
   gap: 20px;
 }
 
-.modal-cover {
-  width: 100%;
+.book-modal-cover {
+  width: clamp(180px, 22vw, 260px);
   aspect-ratio: 5 / 7;
   object-fit: cover;
   border-radius: 10px;
+}
+
+.book-info-container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 35px;
+  align-items: stretch;
+}
+
+.book-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.book-info h1 {
+  font-size: 64px;   
+  margin: 0;
+  line-height: 1.05;
+}
+
+.book-info p {
+  font-size: 22px;
+  margin: 6px 0 0 0; 
+  opacity: 0.8;
+}
+
+.book-description {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.5rem;
+  color: #422D13;
+  margin-top: 10px;
+
+  nav-down: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  line-height: 1.5em;
+}
+
+.review-bar {
+  width: 100%;
+  border: 2px solid rgba(79, 54, 24, 0.4);
+  background-color: rgba(255, 248, 237, 0.8);
+  border-radius: 18px;
+  box-sizing: border-box;
+  padding: 10px 15px;
+}
+
+.review-input {
+  all: unset;
+  font-family: 'Courier Prime', monospace;
+  color: #847058;
+  -webkit-text-fill-color: #847058;
+  width: 100%;
+  min-height: 80px;
+  resize: none;
+  line-height: 1.5;
+  display: block;
+}
+
+.rating-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.rating-section h2 {
+  font-size: 1.4rem;
+  color: #422D13;
+  margin: 0;
+}
+
+.rating-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
 }
