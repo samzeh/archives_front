@@ -6,7 +6,7 @@ interface ForceGraph3DInstance {
   _destructor?: () => void
 }
 
-interface NodeObject {
+export interface NodeObject {
   id: number
   label: string
   neighbors?: NodeObject[]
@@ -29,10 +29,19 @@ const fetchGraphData = async(liked_book_id: number) => {
   return response.json()
 }
 
-export default function Force3DGraph() {
+export default function Force3DGraph(props: { 
+  onNodeClick?: (node: NodeObject) => void, 
+  onDismiss?: () => void, 
+  cardVisible?: boolean 
+}) {
 
   const containerRef = useRef<HTMLDivElement | null>(null)
   const graphRef = useRef<ForceGraph3DInstance | null>(null)
+  const cardVisibleRef = useRef(props.cardVisible)
+
+  useEffect(() => {
+    cardVisibleRef.current = props.cardVisible
+  }, [props.cardVisible])
 
   const {data: graphDataInfo, isLoading } = useQuery({
     queryKey: ["liked_books"],
@@ -123,6 +132,8 @@ export default function Force3DGraph() {
     graph.onNodeClick((node: NodeObject) => {
       selectedNode = node
 
+      props.onNodeClick?.(node)
+
       const distance = 100
       const distRatio = 1 + distance / Math.hypot(node.x, node.y, node.z)
       const newPos = {
@@ -139,10 +150,19 @@ export default function Force3DGraph() {
     graph.onBackgroundClick(() => {
       selectedNode = null
       highlightNode(null)
+      props.onDismiss?.()
     })
 
+    const handleWheel = () => {
+      if (cardVisibleRef.current) {
+        props.onDismiss?.()
+      }
+    }
+    containerRef.current?.addEventListener('wheel', handleWheel, { passive: true })
+
     return () => {
-      graph?._destructor?.();
+      containerRef.current?.removeEventListener('wheel', handleWheel)
+      graph?._destructor?.()
     }
   }, [])
 
