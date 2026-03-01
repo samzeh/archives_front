@@ -67,12 +67,10 @@ hr {
 .description {
   font-family: 'DM Sans', sans-serif;
   font-size: 1.4rem;
-  color: #000000;
+  color: #422D13;
   margin-top: 10px;
-}
 
-.description {
-  display: flex;
+  nav-down: flex;
   flex-direction: column;
   overflow-y: auto;
   max-height: calc(7 * 1.5em);

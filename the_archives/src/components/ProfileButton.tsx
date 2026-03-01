@@ -1,14 +1,10 @@
 import React from 'react'
-import '../styles/buttons.css'
-import { BsFillPersonFill } from "react-icons/bs";
+import '../styles/footer.css'
+import mockPfp from '../assets/mock_pfp.png'
 
 export default function ProfileButton() {
   return (
-    <>
-    <div className="profile-button">
-      <BsFillPersonFill style={{ height: '2em', width: '2em' }} />    
-    </div>
-    </>
+    <img src={mockPfp} alt="Profile" className="profile-button" />
   )
 }
 

@@ -5,6 +5,8 @@ import DetailCard from './components/detailCard'
 import ExpandedDetailCard from './components/ExpandedDetailCard'
 import Force3DGraph from './components/Force3DGraph'
 import NodeObject from './components/Force3DGraph'
+import SearchBar from './components/SearchBar'
+import ProfileButton from './components/ProfileButton'
 
 function Home() {
   const [selectedNode, setSelectedNode] = useState<typeof NodeObject>(null)
@@ -48,8 +50,8 @@ function Home() {
       </AnimatePresence>
 
       <div className="footer-bar">
-        {/* <ProfileButton /> */}
-        {/* <SearchBarButton /> */}
+        <SearchBar />
+        <ProfileButton />
       </div>
     </>
   )
