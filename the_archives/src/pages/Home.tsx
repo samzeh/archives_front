@@ -1,12 +1,12 @@
-import './Home.css'
+import '../styles/Home.css'
 import { useState, useRef } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
-import DetailCard from './components/detailCard'
-import ExpandedDetailCard from './components/ExpandedDetailCard'
-import Force3DGraph from './components/Force3DGraph'
-import NodeObject from './components/Force3DGraph'
-import SearchBar from './components/SearchBar'
-import ProfileButton from './components/ProfileButton'
+import DetailCard from '../components/detailCard'
+import ExpandedDetailCard from '../components/ExpandedDetailCard'
+import Force3DGraph from '../components/Force3DGraph'
+import NodeObject from '../components/Force3DGraph'
+import SearchBar from '../components/SearchBar'
+import ProfileButton from '../components/ProfileButton'
 
 function Home() {
   const [selectedNode, setSelectedNode] = useState<typeof NodeObject>(null)
