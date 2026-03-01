@@ -10,6 +10,7 @@
   width: calc(300px * 5 / 7);
   aspect-ratio: 5 / 7;
   object-fit: cover;
+  cursor: pointer;
 }
 
 .section-box {
@@ -49,4 +50,35 @@
   width: 65px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   border: 2px solid rgba(79, 54, 24, 0.4);
+}
+
+
+/* ADDED MODAL CODE */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 20;
+}
+
+.book-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 40vw;
+  background: rgba(255, 248, 237, 0.95);
+  z-index: 21;
+  padding: 40px 30px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modal-cover {
+  width: 100%;
+  aspect-ratio: 5 / 7;
+  object-fit: cover;
+  border-radius: 10px;
 }
