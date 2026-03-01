@@ -47,5 +47,53 @@
   border: 2px solid rgba(79, 54, 24, 0.4);
   display: flex;
   align-items: center;
+}
+
+.search-results-box {
+  margin-top: 20px;
+  margin-left: 20px;
+  width: 40vw;
+  height: fit-content;
+  background: rgba(255, 248, 237, 0.8);
+  border-radius: 23px;
+  border: 1px solid rgba(185, 170, 152, 0.8);
+  filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.25));
+
+  padding: 10px 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.search-result-card {
+  display: flex;
+  flex-direction: row;
   gap: 15px;
+  margin: 10px 0;
+  align-items: center;
+}
+
+.search-result-cover {
+  height: 60px;
+  width: calc(60px * 5 / 7);
+  aspect-ratio: 5 / 7;
+  object-fit: cover;
+
+}
+
+.search-result-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.search-result-info h1 {
+  font-size: 1.8rem;
+  color: #422D13;
+}
+
+.search-result-info p {
+  color: #847058;
+  letter-spacing: -0.05em;
+  font-size: 1.1rem;
 }
