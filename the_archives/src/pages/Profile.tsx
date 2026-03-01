@@ -4,6 +4,7 @@ import BookCarousel from '../components/BookCarousel'
 import SideModal from '../components/SideModal'
 import '../styles/profile.css'
 import mockPfp from '../assets/mock_pfp.png'
+import { useNavigate } from 'react-router-dom'
 
 const mockData = [
   {
@@ -20,13 +21,17 @@ type Book = { id: number, cover: string }
 
 export default function Profile() {
   const [selectedBook, setSelectedBook] = useState<Book | null>(null)
-  
+  const navigate = useNavigate()
+  const goHome = () => {
+    navigate('/')
+  }
+
   return (
     <>
       <div className="header">
         <h1>Sam's Library</h1>
         <div className="header-icons">
-          <GoHomeFill style={{height: '65px', width: '65px'}} />
+          <GoHomeFill style={{height: '65px', width: '65px', cursor: 'pointer', pointerEvents: 'all'}} onClick={goHome} />
           <img src={mockPfp} alt="Profile" className="profile-image" />
         </div>
       </div>

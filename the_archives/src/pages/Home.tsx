@@ -7,11 +7,16 @@ import Force3DGraph from '../components/Force3DGraph'
 import NodeObject from '../components/Force3DGraph'
 import SearchBar from '../components/SearchBar'
 import ProfileButton from '../components/ProfileButton'
+import { useNavigate} from 'react-router-dom'
 
 function Home() {
   const [selectedNode, setSelectedNode] = useState<typeof NodeObject>(null)
   const [isExpanded, setIsExpanded] = useState(false)
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const navigate = useNavigate()
+  const goToProfile = () => {
+    navigate('/profile')
+  }
 
   return (
     <>
@@ -51,7 +56,7 @@ function Home() {
 
       <div className="footer-bar">
         <SearchBar />
-        <ProfileButton />
+        <ProfileButton onClick={goToProfile} />
       </div>
     </>
   )

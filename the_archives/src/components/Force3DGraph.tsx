@@ -175,8 +175,8 @@ export default function Force3DGraph(props: {
     console.log(nodes_list)
 
     const graphData = {
-      nodes: nodes_list,
-      links: links_list
+      nodes: nodes_list.map((n: NodeObject) => ({ ...n, neighbors: undefined, links: undefined })),
+      links: links_list.map((l: LinkObject) => ({ ...l }))
     }
 
     graphData.links.forEach(link => {
