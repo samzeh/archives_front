@@ -1,5 +1,5 @@
 import '../styles/Home.css'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import DetailCard from '../components/DetailCard'
 import ExpandedDetailCard from '../components/ExpandedDetailCard'
@@ -12,7 +12,11 @@ import { useNavigate} from 'react-router-dom'
 function Home() {
   const [selectedNode, setSelectedNode] = useState<NodeObject | null>(null)
   const [isExpanded, setIsExpanded] = useState(false)
-  const [likedBookId, setLikedBookId] = useState<number | undefined>(undefined)
+  const [likedBookId, setLikedBookId] = useState<number | undefined>(()=> {
+    const stored = localStorage.getItem('likedBookId')
+    return stored ? parseInt(stored) : undefined
+  })
+
   const [nodesById, setNodesById] = useState<Map<number, NodeObject>>(new Map())
 
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -20,6 +24,12 @@ function Home() {
   const goToProfile = () => {
     navigate('/profile')
   }
+
+  useEffect(()=> {
+    if (likedBookId) {
+      localStorage.setItem('likedBookId', likedBookId.toString())
+    }
+  }, [likedBookId])
 
   return (
     <>
@@ -36,7 +46,7 @@ function Home() {
           setSelectedNode(null)
           setIsExpanded(false)
         }}
-        liked_book_id={likedBookId}
+        liked_book_id={likedBookId ?? 1}
 
         onGraphDataReady={(nodes) => {
           setNodesById(new Map(nodes.map(node => [node.id, node])))
