@@ -12,6 +12,8 @@ export interface Book {
   publication_year: number;
 }
 export default function SearchResults(props: { results: Book[] }) {
+  const orderedResults = [...props.results].reverse()
+
   return (
     <motion.div
       className="search-results-box"
@@ -20,8 +22,8 @@ export default function SearchResults(props: { results: Book[] }) {
       transition={{ duration: 0.35, ease: 'easeOut' }}
       style={{ overflow: 'hidden' }}
     >
-      {props.results.map((result, index) => {
-        const delay = (props.results.length - 1 - index) * 0.17
+      {orderedResults.map((result, index) => {
+        const delay = (orderedResults.length - 1 - index) * 0.17
         return (
           <React.Fragment key={result.book_id}>
             <motion.div
@@ -39,7 +41,7 @@ export default function SearchResults(props: { results: Book[] }) {
               </div>
             </motion.div>
 
-            {index!==props.results.length-1 && (
+            {index !== orderedResults.length - 1 && (
               <motion.hr
                 className="search-result-divider"
                 initial={{ opacity: 0, scaleX: 0 }}
