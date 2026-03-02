@@ -19,11 +19,22 @@ const mockResults = [
   },
 
 ]
-export default function SearchResults() {
+
+export interface Book {
+  book_id: number;
+  title: string;
+  authors: string;
+  average_ratings: string;
+  description: string;
+  genres: string[];
+  pages: number;
+  publication_year: number;
+}
+export default function SearchResults(props: { results: Book[] }) {
   return (
     <div className="search-results-box">
-      {mockResults.map((result, index) => {
-        const reverseDelay = (mockResults.length - 1 - index) * 0.17
+      {props.results.map((result, index) => {
+        const reverseDelay = (props.results.length - 1 - index) * 0.17
         return (
           <>
             <motion.div
@@ -33,14 +44,14 @@ export default function SearchResults() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: reverseDelay }}
             >
-              <img src={result.cover} alt={`${result.title} cover`} className="search-result-cover" />
+              <img src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1341952742i/15745753.jpg" alt={`${result.title} cover`} className="search-result-cover" />
               <div className="search-result-info">
                 <h1>{result.title}</h1>
-                <p>{result.author}</p>
+                <p>{result.authors}</p>
               </div>
             </motion.div>
 
-            {index!==mockResults.length-1 && (
+            {index!==props.results.length-1 && (
               <hr className="search-result-divider" />
             )}
           </>

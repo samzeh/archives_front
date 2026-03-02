@@ -9,6 +9,10 @@ export default defineConfig({
       '/recommendation-graph': {
         target: 'http://localhost:8000',
         changeOrigin: true,
+      },
+      '/api': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
       }
     }
   }
