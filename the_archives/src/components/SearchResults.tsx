@@ -13,6 +13,7 @@ export interface Book {
 }
 export default function SearchResults(props: { results: Book[] }) {
   const orderedResults = [...props.results].reverse()
+  const hasResults = props.results && props.results.length > 0
 
   return (
     <motion.div
@@ -22,8 +23,9 @@ export default function SearchResults(props: { results: Book[] }) {
       transition={{ duration: 0.35, ease: 'easeOut' }}
       style={{ overflow: 'hidden' }}
     >
-      {orderedResults.map((result, index) => {
+      {hasResults ? (orderedResults.map((result, index) => {
         const delay = (orderedResults.length - 1 - index) * 0.17
+
         return (
           <React.Fragment key={result.book_id}>
             <motion.div
@@ -52,7 +54,20 @@ export default function SearchResults(props: { results: Book[] }) {
             )}
           </React.Fragment>
         )
-      })}
+      })) : (
+        <motion.div
+          initial={{ opacity: 0, y: 16, height: 0, marginTop: 0, marginBottom: 0 }}
+          animate={{ opacity: 1, y: 0, height: 'auto', marginTop: 5, marginBottom: 5 }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+          style={{ overflow: 'hidden' }}
+        >
+          <div className="search-result-card">
+            <div className="search-result-info">
+              <h1>no results found</h1>
+            </div>
+          </div>
+        </motion.div>
+      )}
       
     </motion.div>
   )
