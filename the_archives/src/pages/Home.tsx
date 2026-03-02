@@ -1,17 +1,18 @@
 import '../styles/Home.css'
 import { useState, useRef } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
-import DetailCard from '../components/detailCard'
+import DetailCard from '../components/DetailCard'
 import ExpandedDetailCard from '../components/ExpandedDetailCard'
 import Force3DGraph from '../components/Force3DGraph'
-import NodeObject from '../components/Force3DGraph'
+import type { NodeObject } from '../components/Force3DGraph'
 import SearchBar from '../components/SearchBar'
 import ProfileButton from '../components/ProfileButton'
 import { useNavigate} from 'react-router-dom'
 
 function Home() {
-  const [selectedNode, setSelectedNode] = useState<typeof NodeObject>(null)
+  const [selectedNode, setSelectedNode] = useState<NodeObject | null>(null)
   const [isExpanded, setIsExpanded] = useState(false)
+  const [likedBookId, setLikedBookId] = useState<number | undefined>(undefined)
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const navigate = useNavigate()
   const goToProfile = () => {
@@ -33,6 +34,7 @@ function Home() {
           setSelectedNode(null)
           setIsExpanded(false)
         }}
+        liked_book_id={likedBookId}
       />
 
       <AnimatePresence>
@@ -55,7 +57,9 @@ function Home() {
       </AnimatePresence>
 
       <div className="footer-bar">
-        <SearchBar />
+        <SearchBar 
+          handleSearch={(id: number) => setLikedBookId(id)}
+        />
         <ProfileButton onClick={goToProfile} />
       </div>
     </>

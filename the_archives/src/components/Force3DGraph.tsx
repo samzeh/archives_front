@@ -21,18 +21,17 @@ interface LinkObject {
   target: number
 }
 
-const liked_book_id = 68;
 
-
-const fetchGraphData = async(liked_book_id: number) => {
-  const response = await fetch(`/recommendation-graph/${liked_book_id}`)
+const fetchGraphData = async(book_id: number) => {
+  const response = await fetch(`/recommendation-graph/${book_id}`)
   return response.json()
 }
 
 export default function Force3DGraph(props: { 
   onNodeClick?: (node: NodeObject) => void, 
   onDismiss?: () => void, 
-  cardVisible?: boolean 
+  cardVisible?: boolean,
+  liked_book_id?: number
 }) {
 
   const containerRef = useRef<HTMLDivElement | null>(null)
@@ -44,8 +43,8 @@ export default function Force3DGraph(props: {
   }, [props.cardVisible])
 
   const {data: graphDataInfo, isLoading } = useQuery({
-    queryKey: ["liked_books"],
-    queryFn: () => fetchGraphData(liked_book_id),
+    queryKey: ["liked_books", props.liked_book_id],
+    queryFn: () => fetchGraphData(props.liked_book_id as number),
     refetchOnWindowFocus: false,
   })
 
@@ -195,7 +194,7 @@ export default function Force3DGraph(props: {
     
     graphRef.current.graphData(graphData)
 
-  }, [graphDataInfo, liked_book_id])
+  }, [graphDataInfo, props.liked_book_id])
 
 return (
   <div style={{ width: '100%', height: '100%', position: 'relative' }}>

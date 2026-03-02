@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { motion } from 'motion/react'
 
 export interface Book {
@@ -11,7 +11,7 @@ export interface Book {
   pages: number;
   publication_year: number;
 }
-export default function SearchResults(props: { results: Book[] }) {
+export default function SearchResults(props: { results: Book[], handleSearch: (id: number) => void }) {
   const orderedResults = [...props.results].reverse()
   const hasResults = props.results && props.results.length > 0
 
@@ -34,7 +34,7 @@ export default function SearchResults(props: { results: Book[] }) {
               transition={{ duration: 0.5, delay, ease: 'easeOut' }}
               style={{ overflow: 'hidden' }}
             >
-              <div className="search-result-card">
+              <div className="search-result-card" onClick={() => props.handleSearch(result.book_id)}>
                 <img src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1341952742i/15745753.jpg" alt={`${result.title} cover`} className="search-result-cover" />
                 <div className="search-result-info">
                   <h1>{result.title}</h1>

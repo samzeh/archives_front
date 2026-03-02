@@ -9,7 +9,7 @@ const searchBooks = async(search_query: string) => {
   return response.json()
 }
 
-export default function SearchBar() {
+export default function SearchBar(props: { handleSearch: (id: number) => void }) {
   const [query, setQuery] = useState('')
   const [debouncedQuery, setDebouncedQuery] = useState('')
 
@@ -33,7 +33,7 @@ export default function SearchBar() {
   return (
     <div className="search-bar-wrapper">
       {query && searchResults?.books && (
-        <SearchResults results={searchResults.books} />
+        <SearchResults handleSearch={props.handleSearch} results={searchResults.books} />
       )}
       <div className="search-bar">
         <BsSearch style={{ color: '#847058', flexShrink: 0 }} />
