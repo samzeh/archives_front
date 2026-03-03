@@ -34,6 +34,7 @@ function Home() {
   return (
     <>
       <Force3DGraph
+        key={likedBookId}
         cardVisible={!!selectedNode}
         onNodeClick={(node) => {
           setSelectedNode(null)
