@@ -99,3 +99,8 @@
 .forgot-password:hover {
   color: #5c4c41;
 }
+
+.login-input:focus {
+  outline: none;
+  border-color: rgb(218, 207, 193);
+}

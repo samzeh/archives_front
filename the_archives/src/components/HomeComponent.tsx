@@ -1,6 +1,7 @@
 import React from 'react'
 import '../styles/login.css'
 import LoginComponent from './LoginComponent.tsx'
+import SignupComponent from './SignupComponent.tsx'
 
 export default function HomeComponent() {
   return (
@@ -12,6 +13,7 @@ export default function HomeComponent() {
         <p>guest</p>
       </div>       */}
       <LoginComponent />
+      {/* <SignupComponent /> */}
     </div>
   )
 }
