@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion } from 'motion/react'
 
 export interface Book {
@@ -11,11 +11,33 @@ export interface Book {
   pages: number;
   publication_year: number;
 }
-export default function SearchResults(props: { results: Book[], handleSearch: (id: number) => void }) {
+export default function SearchResults(props: { results: Book[], handleSearch: (id: number) => void, isVisible: () => void }) {
   const orderedResults = [...props.results].reverse()
   const hasResults = props.results && props.results.length > 0
   const cleanAuthorText = (value: string) => value.replace(/\[|\]|"|'/g, '').trim()
-  const [selectedIndex] = useState(3)
+  const [selectedIndex, setSelectedIndex] = useState(orderedResults.length-1)
+
+  const handleSelectionChange = (e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowUp') {
+      setSelectedIndex(prev => prev-1 >= 0? prev-1 : prev)
+    } else if (e.key === 'ArrowDown') {
+      setSelectedIndex(prev => prev+1 <= orderedResults.length-1 ? prev+1 : prev)
+    } else if (e.key === 'Enter') {
+      const selectedResult = orderedResults[selectedIndex].book_id
+      props.handleSearch(selectedResult)
+    }
+  }
+
+  const handleClick = (result: Book) => {
+    setSelectedIndex(orderedResults.findIndex(r => r.book_id === result.book_id))
+    props.handleSearch(result.book_id)
+  }
+
+  useEffect(() => {
+    addEventListener('keydown', handleSelectionChange)
+
+    return () => removeEventListener('keydown', handleSelectionChange)
+  }, [handleSelectionChange])
 
   return (
     <motion.div
@@ -28,8 +50,9 @@ export default function SearchResults(props: { results: Book[], handleSearch: (i
       {hasResults ? (orderedResults.map((result, index) => {
         const delay = (orderedResults.length - 1 - index) * 0.17
         const isSelected = index === selectedIndex
-        const isFirst = index === 4
-        const isLast = index === 0
+
+        const isFirst = orderedResults.length === 1 ? index == 0 : index === orderedResults.length - 1
+        const isLast = orderedResults.length === 1 ? index == 0 :index === 0
 
         return (
           <React.Fragment key={result.book_id}>
@@ -42,7 +65,13 @@ export default function SearchResults(props: { results: Book[], handleSearch: (i
             >
               {isSelected && (<div className="search-result-overlay" /> )}
 
-              <div className={`search-result-card ${isFirst ? 'first' : ''} ${isLast ? 'last' : ''}`} onClick={() => props.handleSearch(result.book_id)}>
+              <div 
+                className={`search-result-card ${isFirst ? 'first' : ''} ${isLast ? 'last' : ''}`} 
+                tabIndex={0} 
+                onClick={() => handleClick(result)} 
+                onKeyDown={handleSelectionChange}
+                onMouseEnter={() => setSelectedIndex(index)}
+              >
                 <img src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1341952742i/15745753.jpg" alt={`${result.title} cover`} className="search-result-cover" />
                 <div className="search-result-info">
                   <h1>{result.title}</h1>
