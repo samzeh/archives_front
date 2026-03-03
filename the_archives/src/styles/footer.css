@@ -1,6 +1,7 @@
 .search-bar-wrapper {
   position: relative;
   width: 40vw;
+  min-width: 200px;
 }
 
 .search-bar {
@@ -143,4 +144,53 @@
   height: 1px;
   background-color: rgba(185, 170, 152, 0.6);
   margin: 0;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .search-bar-wrapper {
+    width: 55vw;
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .search-bar-wrapper {
+    width: 68vw;
+  }
+
+  .search-bar {
+    height: 44px;
+    gap: 12px;
+    border-radius: 14px;
+    padding: 0 12px;
+  }
+
+  .profile-button {
+    height: 44px;
+    width: 44px;
+    font-size: 1.3rem;
+  }
+
+  .search-result-info h1 {
+    font-size: 1.1rem;
+  }
+
+  .search-result-info p {
+    font-size: 0.8rem;
+  }
+
+  .search-result-card {
+    gap: 14px;
+    padding: 8px 16px;
+  }
+
+  .search-result-cover {
+    height: 40px;
+    width: calc(40px * 5 / 7);
+  }
+
+  .search-results-box {
+    border-radius: 14px;
+  }
 }

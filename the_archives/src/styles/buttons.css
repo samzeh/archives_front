@@ -31,3 +31,33 @@
   border: 1px solid rgba(185, 170, 152, 0.6);
   white-space: nowrap;
 }
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .action-button {
+    padding: 8px 16px;
+    font-size: 1.05rem;
+  }
+
+  .genre-pill {
+    padding: 6px 14px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .action-button {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+  }
+
+  .genre-pill {
+    padding: 5px 10px;
+    font-size: 0.8rem;
+  }
+
+  .genre-container {
+    gap: 6px;
+  }
+}

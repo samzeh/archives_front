@@ -28,6 +28,7 @@
   flex-direction: row;
   position: relative;
   width: 500px;
+  max-width: 90vw;
   height: 220px;
   background: rgba(255, 248, 237, 0.8);
   border-radius: 23px;
@@ -68,4 +69,59 @@ h1.book-title {
 
 .detail-card-left {
   aspect-ratio: 5 / 7;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .detail-card {
+    width: min(500px, 88vw);
+    height: auto;
+    min-height: 180px;
+    padding: 24px;
+    gap: 24px;
+    margin: 0;
+  }
+
+  .detail-card-left {
+    max-height: 160px;
+    width: auto;
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .detail-card {
+    width: min(500px, 90vw);
+    height: auto;
+    min-height: 130px;
+    padding: 16px;
+    gap: 14px;
+    margin: 0;
+    border-radius: 18px;
+  }
+
+  h1.book-title {
+    font-size: clamp(1.2rem, calc(40vw / var(--text-length, 10)), 2rem);
+  }
+
+  .detail-card-container p {
+    font-size: 0.95rem;
+  }
+
+  .bottom-text {
+    font-size: 0.65rem !important;
+    right: 12px;
+    bottom: 8px;
+    margin-right: 4px;
+  }
+
+  .detail-card-left {
+    max-height: 110px;
+    width: auto;
+  }
+
+  .star {
+    height: 1.6em;
+    width: 1.6em;
+  }
 }

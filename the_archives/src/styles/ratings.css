@@ -10,3 +10,15 @@
   align-self: flex-start;
   margin-top: auto;
 }
+
+/* Mobile */
+@media (max-width: 640px) {
+  .star {
+    height: 1.6em;
+    width: 1.6em;
+  }
+
+  .star-rating-box {
+    gap: 2px;
+  }
+}
