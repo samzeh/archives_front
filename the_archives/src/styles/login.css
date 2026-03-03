@@ -84,3 +84,18 @@
   display: flex;
   align-items: center;
 }
+
+.forgot-password {
+  font-size: 0.9rem;
+  color: #847058;
+  text-decoration: underline;
+  cursor: pointer;
+  margin: 0;
+  white-space: nowrap;
+  align-self: flex-end;
+  margin-bottom: 2px;
+}
+
+.forgot-password:hover {
+  color: #5c4c41;
+}

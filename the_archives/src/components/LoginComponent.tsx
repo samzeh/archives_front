@@ -13,6 +13,7 @@ export default function LoginComponent() {
           {showPassword ? <AiOutlineEyeInvisible onClick={() => setShowPassword(false)} /> : <AiOutlineEye onClick={() => setShowPassword(true)} />}
         </button>
       </div>
+      <p className="forgot-password">forgot password?</p>
       <button className="login-button">Login</button>
     </div>
   )
