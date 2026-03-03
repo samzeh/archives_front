@@ -104,3 +104,93 @@
   outline: none;
   border-color: rgb(218, 207, 193);
 }
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .home-box {
+    padding: 0 20px;
+    gap: 18px;
+    height: 6vh;
+  }
+
+  .welcome-text {
+    font-size: 1.6rem;
+  }
+
+  .login-box {
+    gap: 14px;
+  }
+
+  .login-input {
+    padding: 7px 10px 5px 10px;
+    font-size: 0.9rem;
+  }
+
+  .password-wrapper .login-input {
+    padding-right: 28px;
+  }
+
+  .login-button {
+    padding: 7px 12px 5px 12px;
+    font-size: 0.9rem;
+  }
+
+  .forgot-password {
+    font-size: 0.8rem;
+  }
+
+  .password-toggle {
+    font-size: 1rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .home-box {
+    padding: 0 12px;
+    gap: 8px;
+    height: auto;
+    min-height: 60px;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px;
+  }
+
+  .welcome-text {
+    font-size: 1.2rem;
+    text-align: center;
+    margin: 0;
+  }
+
+  .login-box {
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+  }
+
+  .login-input {
+    padding: 8px 10px;
+    font-size: 0.85rem;
+    width: 100%;
+  }
+
+  .password-wrapper .login-input {
+    padding-right: 30px;
+  }
+
+  .login-button {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  .forgot-password {
+    font-size: 0.75rem;
+    text-align: center;
+    align-self: center;
+    margin-bottom: 0;
+  }
+
+  .password-toggle {
+    font-size: 0.9rem;
+  }
+}
