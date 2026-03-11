@@ -1,9 +1,10 @@
 import { auth, db } from "./firebase";
-import { doc, setDoc, deleteDoc, getDocs, collection } from "firebase/firestore";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc, deleteDoc, getDocs, collection, query, where } from "firebase/firestore";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import type { User } from "firebase/auth";
 
 
-export async function signup (email, password, username) {
+export async function signup (email: string, password: string, username: string): Promise<User> {
   const userCredential = await createUserWithEmailAndPassword(auth, email, password)
   const user = userCredential.user;
 
@@ -11,7 +12,7 @@ export async function signup (email, password, username) {
   return user;
 }
 
-export async function login(identifier, password) {
+export async function login(identifier: string, password: string): Promise<User> {
   let email = identifier;
   if (!identifier.includes("@")) {
     const usersRef = collection(db, "users");
@@ -26,4 +27,13 @@ export async function login(identifier, password) {
 
   const userCredential = await signInWithEmailAndPassword(auth, email, password);
   return userCredential.user;
+}
+
+
+export async function logout() {
+  try {
+    await signOut(auth);
+  } catch (err: any) {
+    console.error("Logout error:", err.message);
+  }
 }
