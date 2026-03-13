@@ -1,6 +1,6 @@
 import { auth, db } from "./firebase";
 import { doc, setDoc, deleteDoc, getDocs, collection, query, where } from "firebase/firestore";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, EmailAuthProvider, reauthenticateWithCredential, sendPasswordResetEmail } from "firebase/auth";
 import type { User } from "firebase/auth";
 
 
@@ -35,5 +35,25 @@ export async function logout() {
     await signOut(auth);
   } catch (err: any) {
     console.error("Logout error:", err.message);
+  }
+}
+
+export async function deleteAccount(password: string) {
+  const user = auth.currentUser;
+  const credential = EmailAuthProvider.credential(user!.email!, password);
+  try {
+    await reauthenticateWithCredential(user!, credential);
+    await deleteDoc(doc(db, "users", user!.uid));
+    await user!.delete();
+  } catch (err: any) {
+    console.error("Delete account error:", err.message);
+  }
+}
+
+export async function resetPassword(email: string) {
+  try {
+    await sendPasswordResetEmail(auth, email);
+  } catch (err: any) {
+    console.error("Reset password error:", err.message);
   }
 }
