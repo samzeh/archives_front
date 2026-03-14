@@ -1,12 +1,30 @@
 import React from 'react'
 import '../styles/login.css'
+import { useState } from 'react'
 
-export default function DefaultHomeComponents()  {
+
+interface DefaultHomeComponentsProps {
+  setSelectedOption: React.Dispatch<React.SetStateAction<"login" | "signup" | "guest" | null>>
+}
+export default function DefaultHomeComponents({ setSelectedOption }: DefaultHomeComponentsProps)  {
+  
+  const handleLoginClick = () => {
+    setSelectedOption("login")
+  }
+
+  const handleSignUpClick = () => {
+    setSelectedOption("signup")
+  }
+
+  const handleGuestClick = () => {
+    setSelectedOption("guest")
+  }
+
   return (
     <div className="action-links">
-      <p>login</p>
-      <p>sign up</p>
-      <p>guest</p>
+      <p onClick={handleLoginClick}>login</p>
+      <p onClick={handleSignUpClick}>sign up</p>
+      <p onClick={handleGuestClick}>guest</p>
     </div>      
   )
 }

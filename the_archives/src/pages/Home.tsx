@@ -21,7 +21,6 @@ const Home = () => {
         <HomeComponent />
       }
       
-      
     </div>
   )
 }

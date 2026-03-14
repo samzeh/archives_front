@@ -21,7 +21,13 @@
 
 .welcome-text {
   margin-top: 5px;
+  cursor: pointer;
 }
+
+.welcome-text:hover {
+  text-decoration: underline;
+}
+
 .action-links {
   display: flex;
   flex-direction: row;
@@ -32,6 +38,11 @@
 .action-links p {
   font-size: 1.5rem;
   letter-spacing: -0.05em;
+  cursor: pointer;
+}
+
+.action-links p:hover {
+  text-decoration: underline;
 }
 
 .login-input {
@@ -52,6 +63,7 @@
   font-size: 1rem;
   cursor: pointer;
   font-family: 'Courier Prime', monospace;
+  margin-right: -5px;
 }
 
 .login-box {
