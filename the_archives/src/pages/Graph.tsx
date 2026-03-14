@@ -22,7 +22,7 @@ function Graph() {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const navigate = useNavigate()
   const goToProfile = () => {
-    navigate('/profile')
+    navigate('/profile-page')
   }
 
   useEffect(()=> {
