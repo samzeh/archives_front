@@ -11,9 +11,9 @@ export default function LoginComponent() {
   const navigate = useNavigate()
 
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     try {
-      login(username, password)
+      await login(username, password)
       navigate('/recommendation-graph')
     } catch (error) {
       console.error('Error logging in:', error)
@@ -29,7 +29,9 @@ export default function LoginComponent() {
         </button>
       </div>
       <button className="login-button"> Forgot Password</button>
-      <button className="login-button">Login</button>
+      <button className="login-button" onClick={handleLogin}>
+        Login
+      </button>
     </div>
   )
 }

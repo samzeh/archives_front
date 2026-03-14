@@ -11,9 +11,9 @@ export default function SignupComponent() {
   const [ password, setPassword] = useState('')
   const navigate = useNavigate()
 
-  const handleSignup = () => {
+  const handleSignup = async () => {
     try {
-      signup(email, password, username)
+      await signup(email, password, username)
       navigate('/recommendation-graph')
 
     } catch (error) {
