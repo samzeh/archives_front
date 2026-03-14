@@ -1,6 +1,14 @@
 import { auth, db } from "./firebase";
 import { doc, setDoc, deleteDoc, getDocs, collection, query, where } from "firebase/firestore";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, EmailAuthProvider, reauthenticateWithCredential, sendPasswordResetEmail } from "firebase/auth";
+import { 
+  createUserWithEmailAndPassword, 
+  signInWithEmailAndPassword, 
+  signOut, EmailAuthProvider, 
+  reauthenticateWithCredential, 
+  sendPasswordResetEmail,
+  onAuthStateChanged,
+  getAuth
+ } from "firebase/auth";
 import type { User } from "firebase/auth";
 
 
@@ -56,4 +64,14 @@ export async function resetPassword(email: string) {
   } catch (err: any) {
     console.error("Reset password error:", err.message);
   }
+}
+
+export function isLoggedIn(): Promise<boolean> {
+  const auth = getAuth();
+  return new Promise((resolve) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      unsubscribe();
+      resolve(!!user);
+    });
+  });
 }
