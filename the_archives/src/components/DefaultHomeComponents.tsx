@@ -4,8 +4,9 @@ import { useState } from 'react'
 
 
 interface DefaultHomeComponentsProps {
-  setSelectedOption: React.Dispatch<React.SetStateAction<"login" | "signup" | "guest" | null>>
+  setSelectedOption: React.Dispatch<React.SetStateAction<"login" | "signup" | "guest" | "forgot_password" | null>>
 }
+
 export default function DefaultHomeComponents({ setSelectedOption }: DefaultHomeComponentsProps)  {
   
   const handleLoginClick = () => {

@@ -4,13 +4,20 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 import { login } from '../firebase/firestoreFunctions'
 import { useNavigate } from 'react-router-dom'
 
-export default function LoginComponent() {
+interface DefaultHomeComponentsProps {
+  setSelectedOption: React.Dispatch<React.SetStateAction<"login" | "signup" | "guest" | "forgot_password" | null>>
+}
+
+export default function LoginComponent({ setSelectedOption }: DefaultHomeComponentsProps) {
   const [ showPassword, setShowPassword] = useState(false)
   const [ username, setUsername] = useState('')
   const [ password, setPassword] = useState('')
   const [error, setError] = useState('')
   const navigate = useNavigate()
 
+  const handleForgotPassword = () => {
+    setSelectedOption("forgot_password")
+  }
 
   const handleLogin = async () => {
     setError('')
@@ -35,7 +42,7 @@ export default function LoginComponent() {
           {error}
         </div>
       )}
-      <button className="login-button"> Forgot Password</button>
+      <button className="login-button" onClick={handleForgotPassword}> Forgot Password</button>
       <button className="login-button" onClick={handleLogin}>
         Login
       </button>

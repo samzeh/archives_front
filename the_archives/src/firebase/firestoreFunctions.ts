@@ -59,11 +59,7 @@ export async function deleteAccount(password: string) {
 }
 
 export async function resetPassword(email: string) {
-  try {
-    await sendPasswordResetEmail(auth, email);
-  } catch (err: any) {
-    console.error("Reset password error:", err.message);
-  }
+  await sendPasswordResetEmail(auth, email);
 }
 
 export function isLoggedIn(): Promise<boolean> {
