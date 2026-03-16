@@ -73,6 +73,11 @@ export function isLoggedIn(): Promise<boolean> {
   });
 }
 
+export function getCurrentUserId(): string | null {
+  const user = auth.currentUser;
+  return user ? user.uid : null;
+}
+
 export async function addBookToProfile(userId: string, book: ProfileBook) {
   const bookRef = doc(db, "users", userId, "saved_books", String(book.book_id));
   await setDoc(bookRef, {

@@ -3,10 +3,13 @@ import StarRatings from './StarRatings'
 import ActionButton from './ActionButton'
 import { motion } from 'motion/react'
 import GenreCarousel from './GenreCarousel'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { getBookURL, parseInfo } from '../utils/bookCover'
+import { addBookToProfile, getCurrentUserId } from '../firebase/firestoreFunctions'
+import type { ProfileBook } from '../type/books'
 
 interface ExpandedBookInfo {
+  id?: number
   label?: string
   authors?: string[] | string
   average_rating?: number
@@ -30,6 +33,32 @@ export default function ExpandedDetailCard(props: { onCollapse: () => void, book
 
   const cacheKey = `${props.bookInfo.label}-${displayAuthor}`
 
+  const [addStatus, setAddStatus] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (addStatus) {
+      const timeout = setTimeout(() => setAddStatus(null), 3000);
+      return () => clearTimeout(timeout);
+    }
+  }, [addStatus]);
+
+  const handleAddToProfile = async (book: ProfileBook) => {
+    const userId = getCurrentUserId();
+    if (!userId) {
+      setAddStatus('You must be logged in to add books.');
+      return;
+    }
+    setAddStatus(null);
+    try {
+      await addBookToProfile(userId, book);
+      setAddStatus('Book added to your profile!');
+    } catch (err) {
+      setAddStatus('Failed to add book.');
+      console.error('Add to profile error:', err);
+    }
+  }
+
+
   return (
     <motion.div className="expanded-detail-card" layoutId="book-card" onClick={props.onCollapse} transition={{ type: 'spring', stiffness: 180, damping: 26 }}>
       <div
@@ -45,9 +74,26 @@ export default function ExpandedDetailCard(props: { onCollapse: () => void, book
           <p>{displayAuthor}</p>
           <StarRatings rating={props.bookInfo.average_rating ?? 0} />
           <div className="button-container">
-            <ActionButton title="to read" bgColor='#7AC970' textColor='#ffffff'/>
-            <ActionButton title="finished" bgColor='#D9D9D9' textColor='#000000' />
+            <ActionButton   
+              onClick={(e) => {
+                e.stopPropagation();
+                handleAddToProfile({ book_id: String(props.bookInfo.id), your_ratings: 0, comment: '', status: "to_read" });
+              }} 
+              title="to read" 
+              bgColor='#7AC970' 
+              textColor='#ffffff'/>
+            <ActionButton 
+              onClick={(e) => {
+                e.stopPropagation();
+                handleAddToProfile({ book_id: String(props.bookInfo.id), your_ratings: 0, comment: '', status: "finished" });
+              }} 
+              title="finished" 
+              bgColor='#D9D9D9' 
+              textColor='#000000' />
           </div>
+          {addStatus && (
+            <div style={{ color: addStatus.includes('added') ? 'green' : 'red', marginTop: 8, fontSize: '0.95em' }}>{addStatus}</div>
+          )}
         </div>
       </div>
       <div><hr /></div>
