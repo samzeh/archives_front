@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { GoHomeFill } from "react-icons/go"
 import BookCarousel from '../components/BookCarousel'
 import SideModal from '../components/SideModal'
@@ -10,6 +10,7 @@ import { getBookInfo } from '../utils/profileBooks'
 
 export default function Profile() {
   const [selectedBook, setSelectedBook] = useState<Book | null>(null)
+  const queryClient = useQueryClient();
 
   const {
     data: { finishedBooks = [], toReadBooks = [] } = {},
@@ -44,7 +45,11 @@ export default function Profile() {
         {isLoading ? <div>Loading...</div> : isError ? <div>Error loading books</div> : <BookCarousel books={toReadBooks} onBookClick={setSelectedBook} />}
       </div>
 
-      <SideModal book={selectedBook} onClose={() => setSelectedBook(null)} />
+      <SideModal 
+        book={selectedBook} 
+        onClose={() => setSelectedBook(null)}
+        onBookRemoved={() => queryClient.invalidateQueries(['profileBooks'])}
+      />
     </>
   )
 }

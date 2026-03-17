@@ -5,7 +5,7 @@ import StarRatings from './StarRatings'
 import ActionButton from './ActionButton'
 import GenreCarousel from './GenreCarousel'
 import { getBookURL, parseInfo } from '../utils/bookCover'
-import { removeBookFromProfile, getCurrentUserId, addRating, addComment, getRating, getComment } from '../firebase/firestoreFunctions'
+import { removeBookFromProfile, getCurrentUserId, addRating, addComment, getRating, getComment, addBookToProfile } from '../firebase/firestoreFunctions'
 
 interface BookType {
   book_id: number;
@@ -14,9 +14,10 @@ interface BookType {
   average_ratings: number;
   genres: string | string[];
   description: string;
+  status: "to_read" | "finished";
 }
 
-export default function SideModal(props: { book: BookType | null, onClose: () => void }) {
+export default function SideModal(props: { book: BookType | null, onClose: () => void, onBookRemoved?: () => void }) {
   const userId = getCurrentUserId();
 
   const [rating, setRating] = useState<number>(0);
@@ -47,9 +48,31 @@ export default function SideModal(props: { book: BookType | null, onClose: () =>
     }
   }
 
-  const handleRemoveFromProfile = (bookId: number | undefined) => {
-    if (userId && typeof bookId === 'number') {
-      removeBookFromProfile(userId, bookId);
+  const handleSwitchStatus = async (bookId: string | number | undefined) => {
+    if (!userId || !props.book) return;
+
+    const newStatus = props.book.status === 'to_read' ? 'finished' : 'to_read';
+
+    await addBookToProfile(userId, {
+      book_id: String(bookId),
+      your_ratings: rating,
+      comment: comment,
+      status: newStatus
+    });
+
+    props.onClose();
+    if (props.onBookRemoved) props.onBookRemoved();
+  }
+
+  const handleRemoveFromProfile = async (bookId: string | number | undefined) => {
+    if (userId && bookId) {
+      try {
+        await removeBookFromProfile(userId, String(bookId));
+        props.onClose();
+        if (props.onBookRemoved) props.onBookRemoved();
+      } catch (err) {
+        alert('Failed to remove book. Please check your connection or permissions.');
+      }
     }
   };
 
@@ -90,8 +113,16 @@ export default function SideModal(props: { book: BookType | null, onClose: () =>
               <p>{props.book.authors}</p>
               <StarRatings rating={props.book.average_ratings} />
               <div className="button-container">
-                <ActionButton onClick={() => handleRemoveFromProfile(props.book?.book_id)} title="remove" bgColor='#da4021' textColor='#ffffff'/>
-                <ActionButton title="to read" bgColor='#D9D9D9' textColor='#000000' />
+                <ActionButton onClick={e => { e.stopPropagation(); handleRemoveFromProfile(props.book?.book_id); }} title="remove" bgColor='#da4021' textColor='#ffffff'/>
+                <ActionButton
+                  onClick={async e => {
+                    e.stopPropagation();
+                    handleSwitchStatus(props.book?.book_id);
+                  }}
+                  title={props.book.status === 'to_read' ? 'finished' : 'to read'}
+                  bgColor='#D9D9D9'
+                  textColor='#000000'
+                />
               </div>
             </div>
           </div>
