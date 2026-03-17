@@ -2,7 +2,6 @@ import React from 'react'
 import StarIcon from '../assets/star.svg?react';
 import '../styles/ratings.css'
 
-
 export default function StarRatings(props: { rating: number, onRate?: (rating: number) => void }) {
 
   const stars = Array.from({ length: 5 }, (_, index) => index);

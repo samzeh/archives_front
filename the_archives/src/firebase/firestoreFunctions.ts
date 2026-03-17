@@ -1,5 +1,5 @@
 import { auth, db } from "./firebase";
-import { doc, setDoc, deleteDoc, getDocs, collection, query, where, addDoc } from "firebase/firestore";
+import { doc, setDoc, deleteDoc, getDocs, collection, query, where, getDoc } from "firebase/firestore";
 import { 
   createUserWithEmailAndPassword, 
   signInWithEmailAndPassword, 
@@ -101,6 +101,18 @@ export async function addComment(userId: string, bookId: number, comment: string
 export async function addRating(userId: string, bookId: string, rating: number) {
   const bookRef = doc(db, "users", userId, "saved_books", String(bookId));
   await setDoc(bookRef, { your_ratings: rating}, { merge: true });
+}
+
+export async function getRating(userId: string, bookId: number): Promise<number> {
+  const bookRef = doc(db, "users", userId, "saved_books", String(bookId));
+  const bookDoc = await getDoc(bookRef);
+  return bookDoc.exists() ? bookDoc.data().your_ratings : 0;
+}
+
+export async function getComment(userId: string, bookId: number): Promise<string> {
+  const bookRef = doc(db, "users", userId, "saved_books", String(bookId));
+  const bookDoc = await getDoc(bookRef);
+  return bookDoc.exists() ? bookDoc.data().comment : '';
 }
 
 export async function getUserProfileBooks(userId: string): Promise<ProfileBook[]> {
