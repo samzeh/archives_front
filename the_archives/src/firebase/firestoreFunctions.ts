@@ -124,3 +124,9 @@ export async function getUserProfileBooks(userId: string): Promise<ProfileBook[]
   })
   return books;
 }
+
+export async function getUsername(userId: string) {
+  const userRef = doc(db, "users", userId);
+  const userDoc = await getDoc(userRef);
+  return userDoc.exists() ? userDoc.data().username : null;
+}
