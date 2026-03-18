@@ -2,6 +2,7 @@ import { Outlet, Navigate, useLocation } from "react-router-dom";
 import { isLoggedIn } from "./firebase/firestoreFunctions";
 import { useState, useEffect } from "react";
 import loadingGif from './assets/loading.gif'
+import LoadingOverlay from "./components/LoadingOverlay";
 
 export default function ProtectedRoute() {
   const [loggedIn, setLoggedIn] = useState<boolean | null>(null)
@@ -22,17 +23,7 @@ export default function ProtectedRoute() {
   }, [isGuest])
 
   if (loggedIn == null && !isGuest) 
-    return (
-    <div style={{
-      position: 'absolute', inset: 0,
-      display: 'flex', alignItems: 'center', justifyContent: 'center',
-      color: '#44362d', fontSize: '1.5rem', zIndex: 10,
-      flexDirection: 'column',
-    }}>
-      <img src={loadingGif} alt="Loading..." style={{ width: 300, height: 300 }} />
-      <p> loading... </p>
-    </div>
-  )
+    return <LoadingOverlay />
 
   if (isGuest) {
     const allowed = ["/", "/recommendation-list"];

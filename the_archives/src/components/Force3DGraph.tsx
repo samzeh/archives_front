@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react'
 import ForceGraph3D from '3d-force-graph'
 import { useQuery } from '@tanstack/react-query'
 import loadingGif from '../assets/loading.gif'
+import LoadingOverlay from './LoadingOverlay'
 
 interface ForceGraph3DInstance {
   _destructor?: () => void
@@ -204,25 +205,7 @@ export default function Force3DGraph(props: {
 
 return (
   <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-    {isLoading && (
-      <div style={{
-        position: 'absolute',
-        inset: 0,
-        width: '100%',
-        height: '100%',
-        background: '#FFF8EE',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: '#44362d',
-        fontSize: '1.5rem',
-        zIndex: 10,
-        flexDirection: 'column',
-      }}>
-        <img src={loadingGif} alt="Loading..." style={{ width: 300, height: 300 }} />
-        <p> loading... </p>
-      </div>
-    )}
+    {isLoading && <LoadingOverlay />}
     <div ref={containerRef} style={{ width: '100%', height: '100%' }} />
   </div>
 )

@@ -14,6 +14,7 @@ import { AnimatePresence, motion } from 'motion/react'
 import { logout, deleteAccount } from '../firebase/firestoreFunctions'
 import mockPfp from '../assets/mock_pfp.png'
 import ActionButton from '../components/ActionButton'
+import LoadingOverlay from '../components/LoadingOverlay'
 
 
 export default function Profile() {
@@ -78,17 +79,7 @@ export default function Profile() {
 
   return (
     <div style={{ height: '100vh', overflowY: 'auto' }}>
-      {isLoading && (
-        <div style={{
-          position: 'absolute', inset: 0,
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          color: '#44362d', fontSize: '1.5rem', zIndex: 10,
-          flexDirection: 'column',
-        }}>
-          <img src={loadingGif} alt="Loading..." style={{ width: 300, height: 300 }} />
-          <p> loading... </p>
-        </div>
-      )}
+      {isLoading && <LoadingOverlay />}
       <div className="header">
         <h1>{displayUsername}'s Library</h1>
         <div className="header-icons">
