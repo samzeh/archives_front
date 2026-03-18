@@ -8,6 +8,7 @@ import type { NodeObject } from '../components/Force3DGraph'
 import SearchBar from '../components/SearchBar'
 import ProfileButton from '../components/ProfileButton'
 import { useNavigate} from 'react-router-dom'
+import { getCurrentUserId, logout } from '../firebase/firestoreFunctions'
 
 function Graph() {
   const [selectedNode, setSelectedNode] = useState<NodeObject | null>(null)
@@ -16,6 +17,8 @@ function Graph() {
     const stored = localStorage.getItem('likedBookId')
     return stored ? parseInt(stored) : undefined
   })
+  const [showProfileModal, setShowProfileModal] = useState(false)
+  const [user] = useState<string | null>(() => getCurrentUserId())
 
   const [nodesById, setNodesById] = useState<Map<number, NodeObject>>(new Map())
 
@@ -23,6 +26,11 @@ function Graph() {
   const navigate = useNavigate()
   const goToProfile = () => {
     navigate('/profile-page')
+  }
+
+  const handleSignOut = async () => {
+    await logout()
+    navigate('/')
   }
 
   useEffect(()=> {
@@ -77,7 +85,32 @@ function Graph() {
         <SearchBar 
           handleSearch={(id: number) => setLikedBookId(id)}
         />
-        <ProfileButton onClick={goToProfile} />
+        <div style={{ position: 'relative', flexShrink: 0 }}>
+          <ProfileButton onClick={() => setShowProfileModal((v) => !v)} />
+          <AnimatePresence>
+            {showProfileModal && (
+              <motion.div
+                className="profile-modal"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                transition={{ duration: 0.17 }}
+              >
+              {user ? (
+                <>
+                  <p onClick={goToProfile}>profile</p>
+                  <hr />
+                  <p className="danger" onClick={handleSignOut}>log out</p>
+                </>
+              ) : (
+                <p onClick={() => navigate('/')}>
+                  log in
+                </p>
+              )}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
     </>
   )

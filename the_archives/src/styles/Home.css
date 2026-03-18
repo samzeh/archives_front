@@ -20,6 +20,45 @@
   width: fit-content;
 }
 
+.profile-modal {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 0;
+  width: max-content;
+  background: #fff8eeef;
+  z-index: 21;
+  padding: 8px 16px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  border: 1.5px solid rgba(79, 54, 24, 0.3);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.profile-modal p {
+  margin: 4px 0;
+  font-family: 'Courier Prime', monospace;
+  font-size: 1rem;
+  color: #422D13;
+  cursor: pointer;
+}
+
+.profile-modal p:hover {
+  text-decoration: underline;
+}
+
+.profile-modal p.danger {
+  color: #c0392b;
+}
+
+.profile-modal hr {
+  width: 100%;
+  border: none;
+  border-top: 1.5px solid rgba(79, 54, 24, 0.2);
+  margin: 2px 0;
+}
+
 /* Tablet */
 @media (max-width: 1024px) {
   .card-wrapper {

@@ -1,4 +1,4 @@
-import { Outlet, Navigate } from "react-router-dom";
+import { Outlet, Navigate, useLocation } from "react-router-dom";
 import { isLoggedIn } from "./firebase/firestoreFunctions";
 import { useState, useEffect } from "react";
 import loadingGif from './assets/loading.gif'
@@ -8,7 +8,7 @@ export default function ProtectedRoute() {
   const [isGuest] = useState(() => {
     return localStorage.getItem('guest') === 'true'
   })
-
+  const location = useLocation();
 
   useEffect(() => {
     if (isGuest) return
@@ -33,6 +33,14 @@ export default function ProtectedRoute() {
       <p> loading... </p>
     </div>
   )
+
+  if (isGuest) {
+    const allowed = ["/", "/recommendation-list"];
+    if (!allowed.includes(location.pathname)) {
+      return <Navigate to="/" replace />
+    }
+  }
+
   return (loggedIn || isGuest) ? <Outlet /> : <Navigate to="/" />
 }
 
