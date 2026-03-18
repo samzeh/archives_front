@@ -64,12 +64,16 @@ export default function Profile() {
 
       <div className="section-box">
         <h1 className="section-title">Finished:</h1>
-        {isError ? <div>Error loading books</div> : finishedBooks.length === 0 ? <img src={noBooks} alt="No Books" className="book-cover" /> : <BookCarousel books={finishedBooks} onBookClick={setSelectedBook} />}
+        {isError ? <div>Error loading books</div> : finishedBooks.length === 0 
+  ? <div className="book-carousel"><img src={noBooks} alt="No Books" className="book-cover" /></div> 
+  : <BookCarousel books={finishedBooks} onBookClick={setSelectedBook} />}
       </div>
 
       <div className="section-box">
         <h1 className="section-title">To Be Read:</h1>
-        {isError ? <div>Error loading books</div> : toReadBooks.length === 0 ? <img src={noBooks} alt="No Books" className="book-cover" /> : <BookCarousel books={toReadBooks} onBookClick={setSelectedBook} />}
+        {isError ? <div>Error loading books</div> : toReadBooks.length === 0 
+  ? <div className="book-carousel"><img src={noBooks} alt="No Books" className="book-cover" /></div> 
+  : <BookCarousel books={toReadBooks} onBookClick={setSelectedBook} />}
       </div>
 
       <div style={{ paddingBottom: '48px' }} />

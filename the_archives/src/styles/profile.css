@@ -271,19 +271,23 @@
   .section-box {
     margin-left: 16px;
     margin-bottom: 24px;
+    margin-right: 16px; 
   }
 
   .section-title {
     font-size: 24px;
   }
 
-  .book-cover {
-    height: 170px;
-    width: calc(170px * 5 / 7);
+  .book-carousel {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 14px;
   }
 
-  .book-carousel {
-    gap: 14px;
+  .book-cover {
+    height: auto;
+    width: 100%;
+    aspect-ratio: 5 / 7;
   }
 
   .book-modal {
