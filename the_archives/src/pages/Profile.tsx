@@ -13,6 +13,7 @@ import ProfileButton from '../components/ProfileButton'
 import { AnimatePresence, motion } from 'motion/react'
 import { logout, deleteAccount } from '../firebase/firestoreFunctions'
 import mockPfp from '../assets/mock_pfp.png'
+import ActionButton from '../components/ActionButton'
 
 
 export default function Profile() {
@@ -120,30 +121,36 @@ export default function Profile() {
         <>
           <div className="modal-backdrop" onClick={() => setShowEditModal(false)} />
           <div className="edit-profile-modal">
-            <div style={{ position: 'relative', display: 'inline-block' }}>
-              <img src={mockPfp} style={{ width: 70, height: 70, borderRadius: '50%', border: '2px solid rgba(79,54,24,0.3)' }} />
-              <div style={{
-                position: 'absolute', bottom: 0, right: 0,
-                background: '#422D13', borderRadius: '50%',
-                width: 22, height: 22, display: 'flex', alignItems: 'center', justifyContent: 'center',
-                color: 'white', fontSize: '0.8rem', cursor: 'pointer'
-              }}>+</div>
+
+            <div style={{ display: 'flex', flexDirection: 'row', gap: 25, alignItems: 'center' }}>
+              <div style={{ position: 'relative', flexShrink: 0 }}>
+                <img src={mockPfp} style={{ width: 90, height: 90, borderRadius: '50%', border: '2px solid rgba(79,54,24,0.3)', display: 'block' }} />
+                <div style={{
+                  position: 'absolute', bottom: 0, right: -5,
+                  background: '#422D13', borderRadius: '50%',
+                  width: 27, height: 27, lineHeight: '27px',
+                  textAlign: 'center', color: 'white',
+                  fontSize: '1rem', cursor: 'pointer'
+                }}>+</div>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minWidth: 0, gap: 10 }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                  <label style={{ fontFamily: 'Courier Prime', color: '#422D13', fontSize: '1rem' }}>Username</label>
+                  <input className="edit-name-input" defaultValue={username} onBlur={(e) => setUsername(e.target.value)} />
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                  <label style={{ fontFamily: 'Courier Prime', color: '#422D13', fontSize: '1rem' }}>Display Name</label>
+                  <input className="edit-name-input" defaultValue={username} onBlur={(e) => setUsername(e.target.value)} />
+                </div>
+              </div>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-              <label style={{ fontFamily: 'Courier Prime', color: '#422D13', fontSize: '1rem' }}>Display Name</label>
-              <input
-                className="edit-name-input"
-                defaultValue={username}
-                onBlur={(e) => setUsername(e.target.value)}
-              />
+
+            <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: 12, paddingTop: 10 }}>
+              <ActionButton title="delete account" bgColor="#c0392b" textColor="white" onClick={() => { setShowDeleteConfirm(true); setShowEditModal(false) }} />
+              <ActionButton title="save" bgColor="#422D13" textColor="white" onClick={() => setShowEditModal(false)} />
             </div>
-            <p className="danger" onClick={() => {
-              setShowDeleteConfirm(true) 
-              setShowEditModal(false)
-              }
-              } style={{ cursor: 'pointer', fontFamily: 'Courier Prime', textAlign: 'right', margin: 0 }}>
-              delete account
-            </p>
+
           </div>
         </>
       )}
@@ -151,11 +158,11 @@ export default function Profile() {
       {showDeleteConfirm && (
         <>
           <div className="modal-backdrop" onClick={() => setShowDeleteConfirm(false)} />
-          <div className="edit-profile-modal">
-            <p style={{ fontFamily: 'Courier Prime', color: '#422D13', fontSize: '1rem', margin: 0 }}>
+          <div className="edit-profile-modal" style={{ paddingBottom: '30px'}}>
+            <p style={{ fontFamily: 'Courier Prime', color: '#5b4831', fontSize: '1rem', margin: 0 }}>
               Are you sure you want to delete your account? This action cannot be undone.
             </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 15 }}>
               <label style={{ fontFamily: 'Courier Prime', color: '#422D13', fontSize: '1rem' }}>Enter your password to confirm</label>
               <input
                 className="edit-name-input"
@@ -165,9 +172,9 @@ export default function Profile() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 12 }}>
-              <button className="confirm-cancel-btn" onClick={() => { setShowDeleteConfirm(false); setPassword('') }}>cancel</button>
-              <button className="confirm-delete-btn" onClick={() => handleDeleteAccount(password)}>delete</button>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 12, paddingTop: '10px' }}>
+              <ActionButton title="cancel" bgColor="#5b4831" textColor="#ffffff" onClick={() => { setShowDeleteConfirm(false); setPassword('') }} />
+              <ActionButton title="delete" bgColor="#c0392b" textColor="white" onClick={() => handleDeleteAccount(password)} />
             </div>
           </div>
         </>
