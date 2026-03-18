@@ -77,24 +77,20 @@ export default function ExpandedDetailCard(props: { onCollapse: () => void, book
             <ActionButton   
               onClick={(e) => {
                 e.stopPropagation();
-                if (isGuest) return;
                 handleAddToProfile({ book_id: String(props.bookInfo.book_id), your_ratings: 0, comment: '', status: "to_read" });
               }} 
               title="to read" 
               bgColor='#7AC970' 
               textColor='#ffffff'
-              disabled={isGuest}
             />
             <ActionButton 
               onClick={(e) => {
                 e.stopPropagation();
-                if (isGuest) return;
                 handleAddToProfile({ book_id: String(props.bookInfo.book_id), your_ratings: 0, comment: '', status: "finished" });
               }} 
               title="finished" 
               bgColor='#D9D9D9' 
               textColor='#000000' 
-              disabled={isGuest}
             />
           </div>
           {addStatus && (
