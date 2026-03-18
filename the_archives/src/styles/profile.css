@@ -1,6 +1,7 @@
 .book-carousel {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 30px;
   overflow-x: auto;
 }
