@@ -4,6 +4,7 @@ import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+import gzip
 
 app = FastAPI()
 
@@ -19,7 +20,7 @@ app.add_middleware(
 #     artifacts = pickle.load(f)
 
 # Compressed pkl file
-with open('./data/processed/artifacts.pkl.gz', 'rb') as f:
+with gzip.open('./data/processed/artifacts.pkl.gz', 'rb') as f:
     artifacts = pickle.load(f)
 
 group_text_result = artifacts['group_text_result']
