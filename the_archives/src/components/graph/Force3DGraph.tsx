@@ -91,12 +91,15 @@ export default function Force3DGraph(props: {
         }
       }
       )
+      // @ts-ignore
       graph.linkWidth((link: LinkObject) =>
         highlightLinks.has(link) ? 4 : 1
       )
+      // @ts-ignore
       graph.linkDirectionalParticles((link: LinkObject) => 
         highlightLinks.has(link) ? 4 : 0
       )
+      // @ts-ignore
       graph.linkColor(link => '#94836D')
     }
 
@@ -189,6 +192,7 @@ export default function Force3DGraph(props: {
       links: links_list.map((l: LinkObject) => ({ ...l }))
     }
 
+    // @ts-ignore
     graphData.links.forEach(link => {
       const a: NodeObject = graphData.nodes[link.source];
       const b: NodeObject = graphData.nodes[link.target];
@@ -202,7 +206,7 @@ export default function Force3DGraph(props: {
       a.links.push(link); // push the link object (ex. { "source": 0, "target": 1 }) into the links array of the node object
       b.links.push(link);
     })
-    
+
     // @ts-ignore
     graphRef.current.graphData(graphData)
 

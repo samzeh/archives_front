@@ -18,12 +18,15 @@ export async function getBookInfo(){
 
   const { books } = await response.json();
 
+  // @ts-ignore
   const mergedBooks = books.map(book => ({
     ...book, ...profileBooks.find(pb => Number(pb.book_id) === book.book_id)
   }))
 
   return {
+    // @ts-ignore
     finishedBooks: mergedBooks.filter(book => book.status === 'finished'),
+    // @ts-ignore
     toReadBooks: mergedBooks.filter(book => book.status === 'to_read'),
   }
 }

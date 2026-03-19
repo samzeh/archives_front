@@ -34,8 +34,10 @@ export default function SearchResults(props: { results: Book[], handleSearch: (i
   }
 
   useEffect(() => {
+    // @ts-ignore
     addEventListener('keydown', handleSelectionChange)
 
+    // @ts-ignore
     return () => removeEventListener('keydown', handleSelectionChange)
   }, [handleSelectionChange])
 
