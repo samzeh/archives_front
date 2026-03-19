@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { motion } from 'motion/react'
-import { getBookURL, parseInfo } from '../utils/bookCover'
+import { getBookURL, parseInfo } from '../../utils/bookCover'
 
 export interface Book {
   book_id: number;

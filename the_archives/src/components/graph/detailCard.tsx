@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react'
 import { motion } from 'motion/react'
-import { getBookURL, parseInfo } from '../utils/bookCover'
-import StarRatings from './StarRatings'
-import '../styles/detailpage.css'
+import { getBookURL, parseInfo } from '../../utils/bookCover'
+import StarRatings from '../ui/StarRatings'
+import '../../styles/detailpage.css'
 
 
 interface DetailBookInfo {

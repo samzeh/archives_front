@@ -1,4 +1,4 @@
-import '../styles/buttons.css'
+import '../../styles/buttons.css'
 
 export default function GenreCarousel(props: {genres: string[]}) {
   const genres = Array.isArray(props.genres) ? props.genres : []

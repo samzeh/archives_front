@@ -1,7 +1,7 @@
 import { Outlet, Navigate, useLocation } from "react-router-dom";
 import { isLoggedIn } from "./firebase/firestoreFunctions";
 import { useState, useEffect } from "react";
-import LoadingOverlay from "./components/LoadingOverlay";
+import LoadingOverlay from "./components/ui/LoadingOverlay";
 
 export default function ProtectedRoute() {
   const [loggedIn, setLoggedIn] = useState<boolean | null>(null)

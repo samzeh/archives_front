@@ -1,4 +1,4 @@
-import loadingGif from '../assets/loading.gif';
+import loadingGif from '../../assets/loading.gif';
 
 export default function LoadingOverlay({ message = 'loading...', style = {}, imgSize = 300 }) {
   return (

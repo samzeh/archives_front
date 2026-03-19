@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'motion/react'
-import { getBookURL, parseInfo } from '../utils/bookCover'
-import { addBookToProfile, getCurrentUserId } from '../firebase/firestoreFunctions'
-import StarRatings from './StarRatings'
-import ActionButton from './ActionButton'
-import GenreCarousel from './GenreCarousel'
-import type { ProfileBook } from '../type/books'
-import '../styles/expandeddetailpage.css'
+import { getBookURL, parseInfo } from '../../utils/bookCover'
+import { addBookToProfile, getCurrentUserId } from '../../firebase/firestoreFunctions'
+import StarRatings from '../ui/StarRatings'
+import ActionButton from '../ui/ActionButton'
+import GenreCarousel from '../book/GenreCarousel'
+import type { ProfileBook } from '../../type/books'
+import '../../styles/expandeddetailpage.css'
 
 interface ExpandedBookInfo {
   id?: number

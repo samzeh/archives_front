@@ -3,7 +3,7 @@ import LoginComponent from './LoginComponent.tsx'
 import SignupComponent from './SignupComponent.tsx'
 import DefaultHomeComponents from './DefaultHomeComponents.tsx'
 import ForgotPassword from './ForgotPassword.tsx'
-import '../styles/login.css'
+import '../../styles/login.css'
 
 
 export default function HomeComponent() {

@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import ForceGraph3D from '3d-force-graph'
-import LoadingOverlay from './LoadingOverlay'
+import LoadingOverlay from '../ui/LoadingOverlay'
 
 interface ForceGraph3DInstance {
   _destructor?: () => void

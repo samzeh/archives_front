@@ -1,8 +1,8 @@
 import { useEffect, useState, useRef } from 'react'
 import { useQuery } from '@tanstack/react-query';
 import { BsSearch } from "react-icons/bs";
-import SearchResults from './SearchResults';
-import '../styles/footer.css'
+import SearchResults from '../search/SearchResults';
+import '../../styles/footer.css'
 
 
 const searchBooks = async(search_query: string) => {

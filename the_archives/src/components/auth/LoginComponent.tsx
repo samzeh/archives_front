@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { login } from '../firebase/firestoreFunctions'
+import { login } from '../../firebase/firestoreFunctions'
 import { useNavigate } from 'react-router-dom'
-import { getErrorMessage } from '../utils/error'
+import { getErrorMessage } from '../../utils/error'
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
-import '../styles/login.css'
+import '../../styles/login.css'
 
 
 interface DefaultHomeComponentsProps {

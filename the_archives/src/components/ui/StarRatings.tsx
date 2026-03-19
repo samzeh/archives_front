@@ -1,5 +1,5 @@
-import StarIcon from '../assets/star.svg?react';
-import '../styles/ratings.css'
+import StarIcon from '../../assets/star.svg?react';
+import '../../styles/ratings.css'
 
 export default function StarRatings(props: { rating: number, onRate?: (rating: number) => void }) {
 

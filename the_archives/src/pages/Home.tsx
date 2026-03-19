@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
-import Force3DGraph from '../components/Force3DGraph.tsx'
-import HomeComponent from '../components/HomeComponent.tsx'
 import { useNavigate } from 'react-router-dom'
 import { isLoggedIn } from '../firebase/firestoreFunctions.ts'
+import Force3DGraph from '../components/graph/Force3DGraph.tsx'
+import HomeComponent from '../components/auth/HomeComponent.tsx'
+import LoadingOverlay from '../components/ui/LoadingOverlay.tsx'
 import '../styles/login.css'
-import LoadingOverlay from '../components/LoadingOverlay.tsx'
 
 const Home = () => {
   const navigate = useNavigate()
