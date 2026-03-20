@@ -6,7 +6,7 @@ import '../../styles/footer.css'
 
 
 const searchBooks = async(search_query: string) => {
-  const response = await fetch(`/api/books/search?q=${encodeURIComponent(search_query)}`)
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/api/books/search?q=${encodeURIComponent(search_query)}`)
   return response.json()
 }
 

@@ -24,7 +24,7 @@ interface LinkObject {
 
 
 const fetchGraphData = async(book_id: number) => {
-  const response = await fetch(`/recommendation-graph/${book_id}`)
+  const response = await fetch(`${import.meta.env.VITE_MODEL_URL}/recommendation-graph/${book_id}`)
   return response.json()
 }
 
