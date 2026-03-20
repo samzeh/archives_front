@@ -26,6 +26,7 @@ app.get('/api/books/search', async (req, res) => {
 
 
   } catch (err) {
+    console.error('search error:', err)
     res.status(500).json({ error: 'Internal server error' });
   }
 });
@@ -43,6 +44,7 @@ app.post('/api/books/batch', async (req, res) => {
 
     res.json({ books: result.rows });
   } catch (err) {
+    console.error('batch error:', err)
     res.status(500).json({ error: 'Internal server error' });
   }
 });
