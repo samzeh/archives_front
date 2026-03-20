@@ -1,8 +1,8 @@
 .action-button {
-  padding: 10px 20px;
+  padding: 8px 16px;
   font-family: 'DM Sans', sans-serif;
   border-radius: 200px;
-  font-size: 1.2rem;
+  font-size: 1.05rem;
   color: rgb(0, 0, 0);
   background: rgba(255, 255, 255);
   cursor: pointer;
@@ -16,7 +16,7 @@
   overflow-x: auto;
   overflow-y: hidden;
   scrollbar-width: none;
-  min-height: 40px;
+  min-height: 34px;
   align-items: center;
 }
 
@@ -25,10 +25,10 @@
 }
 
 .genre-pill {
-  padding: 8px 17px;
+  padding: 6px 14px;
   font-family: 'DM Sans', sans-serif;
   border-radius: 200px;
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: #422D13;
   background: rgba(185, 170, 152, 0.25);
   border: 1px solid rgba(185, 170, 152, 0.6);

@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-
 }
 
 .detail-card-container p {
@@ -27,16 +26,16 @@
   display: flex;
   flex-direction: row;
   position: relative;
-  width: 500px;
+  width: 440px;
   max-width: 90vw;
-  height: 220px;
+  height: 190px;
   background: rgba(255, 248, 237, 0.8);
   border-radius: 23px;
   border: 1px solid rgba(185, 170, 152, 0.8);
   filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.25));
   box-sizing: border-box;
-  padding: 30px;
-  gap: 30px;
+  padding: 24px;
+  gap: 24px;
   z-index: 1;
 
   margin-top: 20px;
@@ -53,7 +52,7 @@
 }
 
 h1.book-title {
-  font-size: clamp(2rem, calc(40vw / var(--text-length, 10)), 3.5rem);
+  font-size: clamp(1.6rem, calc(40vw / var(--text-length, 10)), 2.8rem);  
   line-height: 1.05;
   padding: 0;
   margin: 0;

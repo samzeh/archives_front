@@ -27,7 +27,7 @@
   width: max-content;
   background: #fff8eeef;
   z-index: 21;
-  padding: 8px 16px;
+  padding: 6px 14px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -39,7 +39,7 @@
 .profile-modal p {
   margin: 4px 0;
   font-family: 'Courier Prime', monospace;
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: #422D13;
   cursor: pointer;
 }

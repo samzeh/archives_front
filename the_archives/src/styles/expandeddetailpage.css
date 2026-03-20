@@ -2,14 +2,14 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  width: 600px;
+  width: 520px;
   max-width: 90vw;
   background: rgba(255, 248, 237, 0.8);
   border-radius: 23px;
   border: 1px solid rgba(185, 170, 152, 0.8);
   filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.25));
   box-sizing: border-box;
-  padding: 30px;
+  padding: 24px;
   gap: 5px;
   z-index: 1;
 
@@ -48,14 +48,14 @@
 }
 
 .info-section img{
-  width: clamp(180px, 22vw, 260px);
+  width: clamp(150px, 18vw, 220px);
   aspect-ratio: 5 / 7;
   object-fit: cover;
   border-radius: 10px;
 }
 
 .info-section h1{
-  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-size: clamp(1.5rem, 2.5vw, 2.4rem);
   line-height: 1.02;
   margin: 0 0 16px 0;
   color: #422D13;
@@ -70,7 +70,7 @@
 }
 
 .expanded-detail-card .info-section .info-text p {
-  font-size: 1.8rem !important;
+  font-size: 1.5rem !important;
   letter-spacing: -0.1em !important;
   margin: 6px 0 24px 0 !important;
   color: #422D13 !important;
@@ -82,8 +82,8 @@
 }
 
 .expanded-detail-card .star {
-  height: 2.1em;
-  width: 2.2em;
+  height: 1.8em;
+  width: 1.8em;
   margin-bottom: 8px;
 }
 
@@ -100,7 +100,7 @@ hr {
 
 .description {
   font-family: 'DM Sans', sans-serif;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   color: #422D13;
   margin-top: 10px;
 
