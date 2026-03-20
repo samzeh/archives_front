@@ -185,7 +185,6 @@ export default function Force3DGraph(props: {
 
     props.onGraphDataReady?.(graphDataInfo.nodes)
     props.onLoaded?.()
-    console.log(nodes_list)
 
     const graphData = {
       nodes: nodes_list.map((n: NodeObject) => ({ ...n, neighbors: undefined, links: undefined })),

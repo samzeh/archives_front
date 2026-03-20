@@ -47,7 +47,8 @@ archives_front/
 
 ---
 
-## Setup Instructions
+
+## Quickstart & Local Setup
 
 ### 1. Clone the repository
 ```
@@ -55,7 +56,19 @@ git clone <your-repo-url>
 cd archives_front
 ```
 
-### 2. Install dependencies
+### 2. Prepare Data & Model Artifacts
+
+**You must generate the ML model artifacts before running the Python backend!**
+
+1. Ensure you have the raw data files in `backend/model-backend/data/raw/` (books.csv, ratings.csv).
+2. Open and run all cells in the notebook:
+   - `backend/model-backend/notebooks/hybrid_model.ipynb`
+   - This will generate the required model files (e.g., `artifacts.pkl`, `artifacts.pkl.gz`) in `backend/model-backend/data/processed/`.
+
+If you skip this step, the model backend will not work.
+
+### 3. Install dependencies
+
 - **Frontend:**
   ```
   cd the_archives
@@ -71,38 +84,63 @@ cd archives_front
   cd ../model-backend
   python3 -m venv .venv
   source .venv/bin/activate
+  pip install --upgrade pip
   pip install -r requirements.txt
   ```
 
-### 3. Environment Configuration
+### 4. Environment Configuration
+
 - **Firestore:**
   - Set up a Firebase project and Firestore database.
   - Add your Firebase config to `the_archives/src/firebase/firebase.ts`.
 - **Postgres:**
-  - Set up a Postgres database and update connection details in `backend/express-backend/db.js`.
-- **(Optional) .env files:**
-  - Add any required environment variables for API keys, DB connections, etc.
+  - Set up a Postgres database and update connection details in `backend/express-backend/.env` (see sample below).
+- **.env file for Express Backend:**
+  - Create `backend/express-backend/.env` with:
+    ```
+    DB_USER=your_db_user
+    DB_PASSWORD=your_db_password
+    DB_HOST=your_db_host
+    DB_PORT=5432
+    DB_DATABASE=your_db_name
+    FRONTEND_URL=http://localhost:5173
+    ```
 
-### 4. Running the App
-- **Start Express backend:**
+### 5. Running the App Locally
+
+**Start all three services in separate terminals:**
+
+- **Express backend:**
   ```
   cd backend/express-backend
-  npm start
+  npm run dev
   # Runs on http://localhost:3000
   ```
-- **Start Python model backend:**
+- **Python model backend:**
   ```
   cd backend/model-backend
   source .venv/bin/activate
   uvicorn app:app --reload --port 8000
   # Runs on http://localhost:8000
   ```
-- **Start React frontend:**
+- **React frontend:**
   ```
   cd the_archives
   npm run dev
   # Runs on http://localhost:5173
   ```
+
+---
+
+## Model Preparation Details
+
+The recommendation model requires precomputed artifacts. To generate them:
+
+1. Open `backend/model-backend/notebooks/hybrid_model.ipynb` in Jupyter or VS Code.
+2. Run all cells. This will process the data and save the model artifacts to `backend/model-backend/data/processed/`.
+3. These files are required for the FastAPI backend to start and serve recommendations.
+
+If you ever change the data or want to retrain, rerun the notebook.
 
 ---
 
