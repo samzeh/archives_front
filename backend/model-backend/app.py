@@ -31,7 +31,7 @@ book_id_list = artifacts['book_id_list']
 books_df = pd.read_csv('./data/raw/books.csv')
 
 def bookRecommendation(liked_book_id, top_k=5, already_recommended=None):
-    liked_index = book_id_list.index(liked_book_id)  
+    liked_index = book_id_list.index(liked_book_id) # find the index of the liked book in the list of book IDs
 
     ratings_similarities = user_rating_similarities[liked_index]
     text_similarities = cosine_similarity(group_text_result[liked_index], group_text_result).flatten()
